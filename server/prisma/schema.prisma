@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  uuid           String   @id @default(uuid())
+  refreshToken   Token[]
+  email          String   @unique
+  password       String
+  isActivated    Boolean  @default(false) @map("is_activated")
+  activationLink String?  @unique @map("activation_link")
+  rememberMe     Boolean? @map("remember_me")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  profile        Profile?
+
+  @@map("user")
+}
+
+model Token {
+  uuid         String @id @default(uuid())
+  refreshToken String @unique @map("refresh_token")
+  User         User   @relation(fields: [userUuid], references: [uuid], onDelete: Cascade)
+  userUuid     String
+  userAgent    String @map("user_agent")
+
+  @@map("tokens")
+}
+
+model Profile {
+  uuid      String   @id @default(uuid())
+  nickName  String?  @map("nick_name")
+  avatar    String?
+  balance   Int      @default(1)
+  user      User     @relation(fields: [userUuid], references: [uuid])
+  userUuid  String   @unique
+  chat      Chat[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("profile")
+}
+
+model Chat {
+  uuid             String  @id @default(uuid())
+  name             String?
+  temperature      Int     @default(1)
+  topT             Int     @default(1) @map("top_t")
+  frequencyPenalty Int     @default(0) @map("frequency_penalty")
+  presencePenalty  Int     @default(0) @map("presence_penalty")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  messages    Message[]
+  Profile     Profile?  @relation(fields: [profileUuid], references: [uuid])
+  profileUuid String?
+
+  @@map("chat")
+}
+
+model Message {
+  uuid String @id @default(uuid())
+
+  currentMessage CurrentMessage[]
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+
+  Chat     Chat?   @relation(fields: [chatUuid], references: [uuid])
+  chatUuid String?
+
+  @@map(" message")
+}
+
+model CurrentMessage {
+  id          String   @id @default(uuid())
+  isSelected  Boolean  @default(true) @map("is_selected")
+  role        AiRole
+  content     String
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  Message     Message? @relation(fields: [messageUuid], references: [uuid], onDelete: Cascade)
+  messageUuid String?
+
+  @@map("current_message")
+}
+
+enum AiRole {
+  system
+  user
+  assistant
+}
