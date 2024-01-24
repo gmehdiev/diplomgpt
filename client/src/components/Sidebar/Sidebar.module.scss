@@ -1,15 +1,17 @@
 .Sidebar {
-    width: 12.5%;
+    width: var(--size);
     display: flex;
     flex-direction: column;
-    background-color: red;
-    height: 100%;
+    background-color: var(--inverted-bg-color);
+    height: 100dvh;
+    max-width: 90vw;
 }
 
 .wrapper {
     display: flex;
+    height: 100dvh;
 }
 
 .children {
-    width: 100%;
+    width: calc(100% - 300px);
 }

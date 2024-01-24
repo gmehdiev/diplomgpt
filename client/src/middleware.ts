@@ -24,7 +24,6 @@ export async function middleware(request: NextRequest) {
 
   const cookieHeader = res.headers.getSetCookie()
 if (cookieHeader) {
-
   const parcesCookie = parse(splitCookiesString(cookieHeader[0]));
   const refreshToken = parcesCookie[0]
   const token = parcesCookie[1]
@@ -52,10 +51,6 @@ if (cookieHeader) {
   }
 
 }
-console.log(res.status)
-
-
-
   if (res.status === 401 && privateRoutes.includes(request.nextUrl.pathname)) {
     const absoluteURL = new URL('/', request.nextUrl.origin)
     return NextResponse.redirect(absoluteURL.toString())
