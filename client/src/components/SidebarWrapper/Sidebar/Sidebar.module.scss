@@ -1,0 +1,19 @@
+.Sidebar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--inverted-bg-color);
+  height: 100dvh;
+  max-width: 90vw;
+  position: absolute;
+}
+.children {
+  width: calc(100% - 300px - 20px);
+  display: flex;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}

@@ -1,5 +1,5 @@
 
-html[data-theme='dark'] {
+html[data-theme='light'] {
   --bg-color: #090949;
   --inverted-bg-color: #e8e8ea;
   --primary-color: #049604;
@@ -8,7 +8,7 @@ html[data-theme='dark'] {
   --inveted-secondary-color: #0449e0;
 }
 
-html[data-theme='light']  {
+html[data-theme='dark']  {
   --bg-color: #e8e8ea;
   --inverted-bg-color: #090949;
   --primary-color: #0232c2;

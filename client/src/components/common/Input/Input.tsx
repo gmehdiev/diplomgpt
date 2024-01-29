@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import cls from "./Input.module.scss";
 import { FC, InputHTMLAttributes, memo, useState } from "react";
-import { EyeIcon } from "../../../../public/icons/eye.icon";
+import { EyeIcon } from "../../../../public/icons/auth/eye.icon";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;

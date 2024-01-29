@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 // import { parse } from "cookie";
 import {parse, splitCookiesString} from 'set-cookie-parser'
 import {ref} from "yup";
-const privateRoutes = ["/chat"];
+const privateRoutes = ["/chat", '/image'];
 
 export async function middleware(request: NextRequest) {
 

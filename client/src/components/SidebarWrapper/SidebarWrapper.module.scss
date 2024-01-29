@@ -1,0 +1,24 @@
+.wrapper {
+    width: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+  position: relative;
+}
+
+.collapsed {
+     width: var(--sidebar-width-collapsed);
+ }
+
+
+.Button {
+  position: absolute;
+  right: 20px;
+  bottom: 20px
+}
+
+.Burger {
+  position: absolute;
+  right: 20px;
+  top: 20px
+}

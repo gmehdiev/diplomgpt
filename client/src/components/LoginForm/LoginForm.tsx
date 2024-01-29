@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import cls from "./LoginForm.module.scss";
-import { EmailIcon } from "../../../public/icons/email.icon";
-import { PasswordIcon } from "../../../public/icons/password.icon";
+import { EmailIcon } from "../../../public/icons/auth/email.icon";
+import { PasswordIcon } from "../../../public/icons/auth/password.icon";
 import { Input } from "../common/Input/Input";
 import Image from "next/image";
 import { Button, ButtonTheme } from "../common/Button/Button";
