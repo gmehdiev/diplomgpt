@@ -1,11 +1,5 @@
-
 import { cookieTheme } from '@/lib/theme/theme.helper';
 import {NextResponse} from "next/server";
-
-// type ResponseData = {
-//     theme: RequestCookie | string | undefined
-// }
-
 import {cookies} from "next/headers";
 
 const THEME_DARK = 'dark';
@@ -20,12 +14,15 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-
     const theme = await req.json()
-        const cookieStore = cookies()
-    cookieStore.set('theme', THEME_DARK)
-    console.log(theme)
-    return  NextResponse.json({asd: 'cookieStore.get(theme)'})
+    const cookieStore = cookies();
+    cookieStore.set('theme', theme.theme, {
+        maxAge: 2592000000,
+        httpOnly: false,
+        sameSite: 'lax',
+        path: '/'
+    })
+    return  NextResponse.json({theme: theme.theme})
 
 }
 

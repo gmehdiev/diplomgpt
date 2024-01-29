@@ -6,8 +6,10 @@ const THEME_LIGHT = 'light';
 
 export const cookieTheme = () => {
     const cookieStore = cookies()
-    console.log(cookieStore.get('theme'))
+    const asdasd = cookies().getAll()
+    console.log(asdasd)
     const a = cookieStore.get('theme')
+     console.log(a)
      return  cookieStore.get('theme')
 };
 

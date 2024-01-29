@@ -55,7 +55,6 @@ if (cookieHeader) {
     const absoluteURL = new URL('/', request.nextUrl.origin)
     return NextResponse.redirect(absoluteURL.toString())
   }
-
   return response;
 }
 

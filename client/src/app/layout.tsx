@@ -1,9 +1,9 @@
-
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type {Metadata} from "next";
+import {Inter} from "next/font/google";
 import "./index.scss";
 import StoreProvider from "./StoreProvider";
 import clsx from "clsx";
+import {cookies} from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,15 +17,16 @@ async function getTheme() {
         credentials: "include", cache: "no-store"});
     return response.json()
 }
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-   const theme =  await getTheme()
-  return (
+    const cookieStore = cookies()
+    const theme =  cookieStore.get('theme')?.value
+    return (
     <StoreProvider>
-      <html lang="en">
+      <html lang="en" data-theme={theme}>
         <body className={clsx(inter.className, {}, [theme])}>{children}</body>
       </html>
     </StoreProvider>
