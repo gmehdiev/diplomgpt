@@ -4,7 +4,7 @@ import cls from "./Chat.module.scss";
 export default function Chat() {
     return (
         <main>
-            <div className={clsx(cls.test)}>asssssssssssssssasas</div>
+            <div className={clsx(cls.test)}>asdasd</div>
         </main>
     );
 }
