@@ -7,7 +7,9 @@
   height: 100dvh;
   max-width: 90vw;
   position: absolute;
-  gap: 12px
+  gap: 12px;
+  padding: 0 12px 0 12px;
+
 }
 .children {
   width: calc(100% - 300px - 20px);

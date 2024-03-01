@@ -4,8 +4,8 @@
     flex-direction: column;
     height: 100dvh;
     position: absolute;
-  left: calc(-1 * var(--sidebar-width));
-  transition: 0.3s all ease-in-out;
+    left: calc(-1 * var(--sidebar-width));
+    transition: 0.3s all ease-in-out;
 
 }
 

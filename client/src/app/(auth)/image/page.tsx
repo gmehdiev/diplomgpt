@@ -1,8 +1,8 @@
-
 export default function Image() {
-    return (
-        <main>
-              картинка
-        </main>
-    );
+  return (
+    <main>
+      <input type="text" />
+      <button>send</button>
+    </main>
+  );
 }

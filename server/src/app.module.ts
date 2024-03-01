@@ -10,6 +10,8 @@ import { AuthGuard } from '@auth/guard/jwt-auth.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { ChatModule } from './chat/chat.module';
 import { S3clientModule } from './s3client/s3client.module';
+import { ImageModule } from './image/image.module';
+import { AiApiModule } from './ai-api/ai-api.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { S3clientModule } from './s3client/s3client.module';
     JwtModule,
     ChatModule,
     S3clientModule,
+    ImageModule,
+    AiApiModule,
   ],
   providers: [
     {

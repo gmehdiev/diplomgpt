@@ -3,9 +3,20 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
+import { readFileSync } from 'fs';
+
+
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  // const httpsOptions = {
+  //   key: readFileSync('./secrets/cert.key'),
+  //   cert: readFileSync('./secrets/cert.crt'),
+  // };
+  const app = await NestFactory.create(AppModule
+  //   , {
+  //   httpsOptions
+  // }
+  );
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
