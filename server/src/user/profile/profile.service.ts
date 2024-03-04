@@ -14,7 +14,7 @@ export class ProfileService {
   }
 
   async getUserData(userUuid: string) {
-   return await this.prismaService.profile.findUnique({
+    return await this.prismaService.profile.findUnique({
       where: {
         userUuid,
       },

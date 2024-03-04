@@ -5,8 +5,7 @@ export class ChatDto {
   profileUuid: string;
 }
 
-
 export class UpdateChatDto {
-    @IsString()
-    name: string;
+  @IsString()
+  name: string;
 }

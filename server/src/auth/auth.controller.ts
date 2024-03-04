@@ -119,7 +119,7 @@ export class AuthController {
         this.configService.get('NODE_ENV', 'development') === 'production',
       path: '/',
     });
-    console.log('s end')
+    console.log('s end');
     res.status(HttpStatus.CREATED).json({ a: 1 });
   }
 }

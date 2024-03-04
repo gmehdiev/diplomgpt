@@ -1,6 +1,5 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 import { ImageService } from './image.service';
-import OpenAI from 'openai';
 
 @Controller('image')
 export class ImageController {
@@ -8,6 +7,5 @@ export class ImageController {
   @Post('')
   async generateImages() {
     await this.imageService.openAi();
-    
   }
 }

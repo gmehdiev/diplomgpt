@@ -1,9 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@prisma/prisma.service';
+import { AiService } from './ai/ai.service';
 
 @Injectable()
 export class ChatService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly aiService: AiService,
+  ) {}
 
   async create(uuid: string) {
     return this.prismaService.chat.create({
@@ -52,5 +56,9 @@ export class ChatService {
         profileUuid: uuid,
       },
     });
+  }
+
+  async testAiService(message: string) {
+    return this.aiService.sendMessage(message)
   }
 }

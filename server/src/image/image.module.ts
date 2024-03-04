@@ -6,6 +6,6 @@ import { HttpModule } from '@nestjs/axios';
 @Module({
   providers: [ImageService],
   imports: [HttpModule],
-  controllers: [ImageController]
+  controllers: [ImageController],
 })
 export class ImageModule {}

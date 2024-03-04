@@ -100,10 +100,11 @@ enum AiRole {
 }
 
 model apiKeys {
-  uuid          String @id @default(uuid())
-  apiKey        String @unique @map("api_key")
-  proxyAddress  String @unique @map("proxy_address")
-  proxyPort     String @map("proxy_port")
-  proxyUsername String @map("proxy_username")
-  proxyPassword String @map("proxy_password")
+  uuid          String   @id @default(uuid())
+  apiKey        String   @unique @map("api_key")
+  proxyAddress  String   @unique @map("proxy_address")
+  proxyPort     String   @map("proxy_port")
+  proxyUsername String   @map("proxy_username")
+  proxyPassword String   @map("proxy_password")
+  usedAt        DateTime
 }

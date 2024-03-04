@@ -11,7 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ChatModule } from './chat/chat.module';
 import { S3clientModule } from './s3client/s3client.module';
 import { ImageModule } from './image/image.module';
-import { AiApiModule } from './ai-api/ai-api.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -23,7 +23,7 @@ import { AiApiModule } from './ai-api/ai-api.module';
     ChatModule,
     S3clientModule,
     ImageModule,
-    AiApiModule,
+    HttpModule,
   ],
   providers: [
     {
@@ -31,5 +31,6 @@ import { AiApiModule } from './ai-api/ai-api.module';
       useClass: AuthGuard,
     },
   ],
+  controllers: [],
 })
 export class AppModule {}

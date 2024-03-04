@@ -37,7 +37,12 @@ export class ChatController {
   }
 
   @Get(':uuid')
-  async getAllChat(@Param('uuid', new ParseUUIDPipe()) uuid: string){
+  async getAllChat(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.chatService.getAllChat(uuid);
+  }
+  @Post('/test')
+  async test(@Body() body: { message: string },@Res() res: Response) {
+    const responce = await this.chatService.testAiService(body.message)
+    res.json(responce) 
   }
 }
