@@ -7,22 +7,7 @@ export class ImageService {
   constructor(private readonly httpService: HttpService) {}
 
   async openAi() {
-    const openai = axios.create({
-      //   baseURL: 'https://ambepdbv:kjffyp60bga2@38.154.227.167:5868',
-      headers: {
-        Authorization:
-          'Bearer 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',
-      },
-      proxy: {
-        host: '38.154.227.167',
-        port: 5868,
-        auth: {
-          username: 'ambepdbv',
-          password: 'kjffyp60bga2',
-        },
-        protocol: 'http',
-      },
-    });
+ 
     try {
       const response = await openai.post(
         'https://api.openai.com/v1/images/generations',
