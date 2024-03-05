@@ -26,7 +26,6 @@ export class MessageService {
       },
     });
 
-
     const newMessages = await this.prismaService.message.findMany({
       where: {
         chatUuid,
@@ -49,6 +48,4 @@ export class MessageService {
     }) as unknown as ChatCompletionMessageParam[];
     return filteredCurrentMessages;
   }
-
-  
 }

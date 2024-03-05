@@ -106,5 +106,5 @@ model apiKeys {
   proxyPort     String   @map("proxy_port")
   proxyUsername String   @map("proxy_username")
   proxyPassword String   @map("proxy_password")
-  usedAt        DateTime
+  usedAt        DateTime @map("used_at")
 }
