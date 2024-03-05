@@ -41,8 +41,8 @@ export class ChatController {
     return this.chatService.getAllChat(uuid);
   }
   @Post('/test')
-  async test(@Body() body: { message: string },@Res() res: Response) {
-    const responce = await this.chatService.testAiService(body.message)
-    res.json(responce) 
+  async test(@Body() body: { message: string }, @Res() res: Response) {
+    const responce = await this.chatService.testAiService(body.message);
+    res.json(responce);
   }
 }

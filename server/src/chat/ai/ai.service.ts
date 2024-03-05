@@ -9,11 +9,11 @@ export class AiService {
 
   async sendMessage(message: string) {
     const agent = new HttpsProxyAgent(
-      '',
+      'http://ambepdbv:kjffyp60bga2@38.154.227.167:5868',
     );
 
     const openai = new OpenAI({
-      apiKey: '',
+      apiKey: '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',
       httpAgent: agent,
     });
 

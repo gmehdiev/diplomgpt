@@ -10,7 +10,6 @@ import { AuthGuard } from '@auth/guard/jwt-auth.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { ChatModule } from './chat/chat.module';
 import { S3clientModule } from './s3client/s3client.module';
-import { ImageModule } from './image/image.module';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
@@ -22,7 +21,6 @@ import { HttpModule } from '@nestjs/axios';
     JwtModule,
     ChatModule,
     S3clientModule,
-    ImageModule,
     HttpModule,
   ],
   providers: [

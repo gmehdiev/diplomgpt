@@ -3,20 +3,21 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
+import { AuthenticatedWsIoAdapter } from './chat/message/guard/socket-auth.guard';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  // const httpsOptions = {
-  //   key: readFileSync('./secrets/cert.key'),
-  //   cert: readFileSync('./secrets/cert.crt'),
-  // };
-  const app = await NestFactory.create(
-    AppModule,
-    //   , {
-    //   httpsOptions
-    // }
-  );
+  const app = await NestFactory.create(AppModule);
+  const jwtService = app.get(JwtService);
+  const configService = app.get(ConfigService);
+
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
+  app.useWebSocketAdapter(
+    new AuthenticatedWsIoAdapter(jwtService, configService),
+  ); // Pass jwtService to the constructor
+
   app.enableCors({
     origin: true,
     credentials: true,

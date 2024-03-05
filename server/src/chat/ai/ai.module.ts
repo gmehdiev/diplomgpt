@@ -7,6 +7,6 @@ import { HttpModule } from '@nestjs/axios';
   providers: [AiService],
   controllers: [AiController],
   imports: [HttpModule],
-  exports: [AiService]
+  exports: [AiService],
 })
 export class AiModule {}

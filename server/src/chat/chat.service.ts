@@ -59,6 +59,6 @@ export class ChatService {
   }
 
   async testAiService(message: string) {
-    return this.aiService.sendMessage(message)
+    return this.aiService.sendMessage(message);
   }
 }
