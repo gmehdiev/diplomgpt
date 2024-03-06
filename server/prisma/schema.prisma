@@ -81,7 +81,7 @@ model Message {
 }
 
 model CurrentMessage {
-  id          String   @id @default(uuid())
+  uuid        String   @id @default(uuid())
   isSelected  Boolean  @default(true) @map("is_selected")
   role        AiRole
   content     String
@@ -100,11 +100,10 @@ enum AiRole {
 }
 
 model apiKeys {
-  uuid          String   @id @default(uuid())
-  apiKey        String   @unique @map("api_key")
-  proxyAddress  String   @unique @map("proxy_address")
-  proxyPort     String   @map("proxy_port")
-  proxyUsername String   @map("proxy_username")
-  proxyPassword String   @map("proxy_password")
-  usedAt        DateTime @map("used_at")
+  uuid          String @id @default(uuid())
+  apiKey        String @unique @map("api_key")
+  proxyAddress  String @unique @map("proxy_address")
+  proxyPort     String @map("proxy_port")
+  proxyUsername String @map("proxy_username")
+  proxyPassword String @map("proxy_password")
 }
