@@ -6,12 +6,12 @@ import { PrismaService } from '@prisma/prisma.service';
 
 @Controller('proxy')
 export class ProxyController {
-    constructor(private readonly proxyService: ProxyService) { }
+  constructor(private readonly proxyService: ProxyService) {}
 
-    @Post()
-    async addApiKeyWithProxy(@Body() dto: ProxyDto, @Res() res: Response) {
-        await this.proxyService.validateApiKey(dto);
+  @Post()
+  async addApiKeyWithProxy(@Body() dto: ProxyDto, @Res() res: Response) {
+    await this.proxyService.validateApiKey(dto);
 
-        return res.status(200);
-    }
+    return res.status(200);
+  }
 }

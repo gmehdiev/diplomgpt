@@ -12,11 +12,11 @@ import { AiRole } from '@prisma/client';
 
 @WebSocketGateway(3001, { namespace: 'events' })
 export class MessageGateway implements OnGatewayConnection {
-  constructor(private readonly messageService: MessageService) { }
+  constructor(private readonly messageService: MessageService) {}
 
   @WebSocketServer()
   server: Server;
-  handleConnection(client: any) { }
+  handleConnection(client: any) {}
   @SubscribeMessage('message')
   async handleMessage(client: any, payload: any): Promise<string> {
     const messages = await this.messageService.addUserMessage(
@@ -24,14 +24,12 @@ export class MessageGateway implements OnGatewayConnection {
       payload.message,
     );
 
-
-
     const completion = await openai.chat.completions.create({
       messages: messages.convertedMessages,
       model: 'gpt-3.5-turbo',
       stream: true,
     });
-    console.log(messages.convertedMessages)
+    console.log(messages.convertedMessages);
     const accumulate: string[] = [];
     for await (const part of completion) {
       console.log(part.choices[0].delta.content);
@@ -58,7 +56,7 @@ export class MessageGateway implements OnGatewayConnection {
       payload.messageUuid,
     );
 
-    console.log(messages.convertedMessages)
+    console.log(messages.convertedMessages);
     const completion = await openai.chat.completions.create({
       messages: messages.convertedMessages,
       model: 'gpt-3.5-turbo',
