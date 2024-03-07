@@ -14,7 +14,7 @@ import { ChatService } from './chat.service';
 import { ChatDto, UpdateChatDto } from './dto/chat.dto';
 @Controller('chat')
 export class ChatController {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(private readonly chatService: ChatService) { }
   @Post('')
   async create(@Body() dto: ChatDto, @Res() res: Response) {
     const chat = await this.chatService.create(dto.profileUuid);
@@ -39,10 +39,5 @@ export class ChatController {
   @Get(':uuid')
   async getAllChat(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
     return this.chatService.getAllChat(uuid);
-  }
-  @Post('/test')
-  async test(@Body() body: { message: string }, @Res() res: Response) {
-    const responce = await this.chatService.testAiService(body.message);
-    res.json(responce);
   }
 }
