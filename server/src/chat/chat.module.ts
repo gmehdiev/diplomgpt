@@ -5,11 +5,10 @@ import { AiService } from './ai/ai.service';
 import { AiModule } from './ai/ai.module';
 import { HttpModule } from '@nestjs/axios';
 import { MessageModule } from './message/message.module';
-import { ProxyModule } from './proxy/proxy.module';
 
 @Module({
   providers: [ChatService, AiService],
   controllers: [ChatController],
-  imports: [AiModule, HttpModule, MessageModule, ProxyModule],
+  imports: [AiModule, HttpModule, MessageModule],
 })
 export class ChatModule {}

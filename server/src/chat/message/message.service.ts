@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AiRole, CurrentMessage } from '@prisma/client';
 import { PrismaService } from '@prisma/prisma.service';
 import { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
+import { MessageResponse } from './interface';
 
 @Injectable()
 export class MessageService {
@@ -48,7 +49,10 @@ export class MessageService {
     return currentMessages;
   }
 
-  async addUserMessage(chatUuid: string, message: string) {
+  async addUserMessage(
+    chatUuid: string,
+    message: string,
+  ): Promise<MessageResponse> {
     const messages = await this.prismaService.message.create({
       data: {
         chatUuid,
@@ -98,7 +102,10 @@ export class MessageService {
     });
   }
 
-  async regenerateAssistantMessage(chatUuid: string, messageUuid: string) {
+  async regenerateAssistantMessage(
+    chatUuid: string,
+    messageUuid: string,
+  ): Promise<MessageResponse> {
     console.log(messageUuid);
     await this.prismaService.currentMessage.updateMany({
       where: {
@@ -108,7 +115,6 @@ export class MessageService {
         isSelected: false,
       },
     });
-
     const assistanCurrentMessage =
       await this.prismaService.currentMessage.create({
         data: {

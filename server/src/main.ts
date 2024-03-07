@@ -16,8 +16,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.useWebSocketAdapter(
     new AuthenticatedWsIoAdapter(jwtService, configService),
-  ); // Pass jwtService to the constructor
-
+  );
   app.enableCors({
     origin: true,
     credentials: true,

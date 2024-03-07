@@ -11,6 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ChatModule } from './chat/chat.module';
 import { S3clientModule } from './s3client/s3client.module';
 import { HttpModule } from '@nestjs/axios';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { HttpModule } from '@nestjs/axios';
     ChatModule,
     S3clientModule,
     HttpModule,
+    ScheduleModule.forRoot(),
   ],
   providers: [
     {

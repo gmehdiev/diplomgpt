@@ -5,7 +5,7 @@ import { HttpsProxyAgent } from 'https-proxy-agent';
 
 @Injectable()
 export class AiService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(private readonly httpService: HttpService) { }
 
   async sendMessage(message: string) {
     const agent = new HttpsProxyAgent(
@@ -25,7 +25,7 @@ export class AiService {
     for await (const part of completion) {
       console.log(part.choices[0].delta.content);
     }
-
+    console.log('ASDDDDDASDASDSA')
     return 'asdasd';
   }
 }

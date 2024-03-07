@@ -1,6 +1,8 @@
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { IoAdapter } from '@nestjs/platform-socket.io';
+import { ServerOptions } from 'socket.io';
+import * as cookie from 'cookie';
 
 export class AuthenticatedWsIoAdapter extends IoAdapter {
   constructor(
@@ -10,9 +12,11 @@ export class AuthenticatedWsIoAdapter extends IoAdapter {
     super();
   }
 
-  createIOServer(port: number, options?: any): any {
+  createIOServer(port: number, options?: ServerOptions): any {
     options.allowRequest = async (request, allowFunction) => {
-      const token = request?.headers?.token?.split(' ')[1];
+
+      const cookies = cookie.parse(request.headers.cookie || '');
+      const token = cookies?.token?.split(' ')[1];
       if (!token) {
         return allowFunction('FORBIDDEN', false);
       }
