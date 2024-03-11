@@ -6,7 +6,7 @@ import { MessageResponse } from './interface';
 
 @Injectable()
 export class MessageService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) { }
   private convertMessage(messages: CurrentMessage[]) {
     const convertedMessages = messages.map<ChatCompletionMessageParam>(
       (item) => {
@@ -59,7 +59,7 @@ export class MessageService {
       },
     });
 
-    await this.prismaService.currentMessage.create({
+    const userMessage = await this.prismaService.currentMessage.create({
       data: {
         messageUuid: messages.uuid,
         content: message,
@@ -85,13 +85,17 @@ export class MessageService {
     const currentMessages = await this.allMessages(chatUuid, true);
 
     return {
+      userMessage: userMessage,
       assistantMessageUuid: assistanMessage.uuid,
       assistanCurrentMessageUuid: assistanCurrentMessage.uuid,
       convertedMessages: this.convertMessage(currentMessages),
     };
   }
 
-  async saveAssistantMessage(currentMessagesUuid: string, content: string) {
+  async saveAssistantMessage(
+    currentMessagesUuid: string,
+    content: string,
+  ): Promise<CurrentMessage> {
     await this.prismaService.currentMessage.update({
       where: {
         uuid: currentMessagesUuid,
@@ -100,12 +104,18 @@ export class MessageService {
         content,
       },
     });
+
+    return this.prismaService.currentMessage.findUnique({
+      where: {
+        uuid: currentMessagesUuid,
+      },
+    });
   }
 
   async regenerateAssistantMessage(
     chatUuid: string,
     messageUuid: string,
-  ): Promise<MessageResponse> {
+  ): Promise<Omit<MessageResponse, 'userMessage'>> {
     console.log(messageUuid);
     await this.prismaService.currentMessage.updateMany({
       where: {

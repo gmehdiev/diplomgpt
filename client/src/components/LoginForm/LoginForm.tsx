@@ -22,12 +22,12 @@ export const LoginForm = () => {
   };
   return (
     <div className={clsx(cls.box)}>
-      <Image
+      {/* <Image
         src="/image/logo.jpg"
         alt="хомяк с пистолетом"
         width={100}
         height={100}
-      />
+      /> */}
       <h2>Добро пожаловать назад</h2>
       <form action="">
         <Input

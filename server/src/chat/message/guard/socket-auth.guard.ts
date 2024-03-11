@@ -14,7 +14,6 @@ export class AuthenticatedWsIoAdapter extends IoAdapter {
 
   createIOServer(port: number, options?: ServerOptions): any {
     options.allowRequest = async (request, allowFunction) => {
-
       const cookies = cookie.parse(request.headers.cookie || '');
       const token = cookies?.token?.split(' ')[1];
       if (!token) {

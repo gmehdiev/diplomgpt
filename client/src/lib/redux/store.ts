@@ -1,10 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { reducer as authSlice } from './slices/auth.slice'
+import { chatApi } from '../api/api'
+import { setupListeners } from '@reduxjs/toolkit/query'
+
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {  auth: authSlice },
+    reducer: {
+      auth: authSlice,
+      [chatApi.reducerPath]: chatApi.reducer
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(chatApi.middleware)
+
   })
+
 }
 
 // Infer the type of makeStore

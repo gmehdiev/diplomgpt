@@ -1,3 +1,4 @@
+import { ChatSidebar } from "@/components/ChatSidebar/ChatSidebar";
 import { SidebarWrapper } from "@/components/SidebarWrapper/SidebarWrapper";
 
 
@@ -9,7 +10,9 @@ export default function Layout({
 }) {
   return (
     <>
-      <SidebarWrapper  />{children}
+   
+      {children} 
+      {/* <ChatSidebar/> */}
     </>
   );
 }

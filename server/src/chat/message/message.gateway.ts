@@ -12,10 +12,11 @@ import { ProxyService } from '../proxy/proxy.service';
 import { MessageResponse } from './interface';
 
 @WebSocketGateway(3001, {
-  namespace: 'events', cors: {
+  namespace: 'events',
+  cors: {
     origin: true,
     credentials: true,
-  }
+  },
 })
 export class MessageGateway implements OnGatewayConnection {
   constructor(
@@ -25,11 +26,10 @@ export class MessageGateway implements OnGatewayConnection {
 
   @WebSocketServer()
   server: Server;
-  handleConnection(client: any) {
-  }
+  handleConnection(client: any) { }
   @SubscribeMessage('message')
   async handleMessage(client: any, payload: any): Promise<string> {
-    console.log(payload)
+    console.log(payload);
 
     const messages = await this.messageService.addUserMessage(
       payload.chatUuid,
@@ -47,9 +47,11 @@ export class MessageGateway implements OnGatewayConnection {
     await this.sendMessage(messages);
   }
 
-  private async sendMessage(messages: MessageResponse) {
+  private async sendMessage(
+    messages: MessageResponse | Omit<MessageResponse, 'userMessage'>,
+  ) {
     const apiKey = await this.proxyService.getApiKey();
-
+    console.log(messages);
     if (!apiKey) {
       this.server.emit('events', {
         path: null,
@@ -64,7 +66,15 @@ export class MessageGateway implements OnGatewayConnection {
       apiKey: apiKey.apiKey,
       httpAgent: agent,
     });
-    console.log(messages.convertedMessages)
+    if ('userMessage' in messages) {
+      this.server.emit('events', {
+        // path: part.choices[0].delta.content,
+        // assistantMessageUuid: messages.assistantMessageUuid,
+        // assistanCurrentMessageUuid: messages.assistanCurrentMessageUuid,
+        userMessage: messages.userMessage,
+      });
+    }
+
     const completion = await openai.chat.completions.create({
       messages: messages.convertedMessages,
       model: 'gpt-3.5-turbo',
@@ -81,9 +91,15 @@ export class MessageGateway implements OnGatewayConnection {
       });
     }
 
-    await this.messageService.saveAssistantMessage(
+    const assistantMessage = await this.messageService.saveAssistantMessage(
       messages.assistanCurrentMessageUuid,
       accumulate.join(''),
     );
+    this.server.emit('events', {
+      // path: part.choices[0].delta.content,
+      // assistantMessageUuid: messages.assistantMessageUuid,
+      // assistanCurrentMessageUuid: messages.assistanCurrentMessageUuid,
+      assistantMessage: assistantMessage,
+    });
   }
 }

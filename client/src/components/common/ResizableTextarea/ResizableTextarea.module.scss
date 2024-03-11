@@ -1,0 +1,56 @@
+.textarea {
+    position: relative;
+    font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 21px;
+    font-size: 14px;
+    text-align: left;
+    width: calc(100% - 90px);
+    max-height: 250px;
+
+}
+
+.textareaControl {
+    background-color: #fff;
+    resize: none;
+    margin: 0;
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #263238;
+    border-radius: 3px;
+    font: inherit;
+    outline: 0;
+    border: none;
+    max-height: 250px;
+
+    &::placeholder {
+        color: #b0bec5;
+    }
+
+    &[data-view="fake"] {
+        visibility: hidden;
+        user-select: none;
+        pointer-events: none;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        overflow: hidden;
+    }
+
+    &[data-view="native"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+    }
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+
+    &::-webkit-scrollbar-thumb {
+        width: 8px;
+        background-color: var(--inverted-bg-color);
+        border-radius: 20px;
+    }
+}

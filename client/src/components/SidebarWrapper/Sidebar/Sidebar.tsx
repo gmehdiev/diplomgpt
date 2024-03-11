@@ -14,14 +14,14 @@ interface SidebarInterface {
 export const Sidebar = ({setSidebarOpen}: SidebarInterface) => {
     return <div className={clsx(cls.wrapper)}>
         <div className={clsx(cls.Sidebar)}>
-            {/* <Image
+            <Image
                 src="/image/logo.jpg"
                 alt="хомяк с пистолетом"
                 width={100}
                 height={100}
-            /> */}
-            <UILink href="/chat" icon={ChatIcon}  setSidebarOpen={setSidebarOpen}>Chat</UILink>
-            <UILink href="/image" icon={ImageIcon}  setSidebarOpen={setSidebarOpen}>Image</UILink>
+            />
+            <UILink href="/chat" Icon={ChatIcon}  setSidebarOpen={setSidebarOpen}>Chat</UILink>
+            <UILink href="/image" Icon={ImageIcon}  setSidebarOpen={setSidebarOpen}>Image</UILink>
             <ThemeSwitcher/>
         </div>
         {/*<div className={clsx(cls.children)}>{children}</div>*/}
