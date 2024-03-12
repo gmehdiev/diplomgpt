@@ -1,11 +1,11 @@
 .wrapper {
-    width: var(--sidebar-width);
-    display: flex;
-    flex-direction: column;
-    height: 100dvh;
-    position: absolute;
-    left: calc(-1 * var(--sidebar-width));
-    transition: 0.3s all ease-in-out;
+  width: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  position: absolute;
+  left: calc(-1 * var(--sidebar-width));
+  transition: 0.3s all ease-in-out;
 
 }
 

@@ -1,3 +1,4 @@
+'use client'
 import { ChatSidebar } from "@/components/ChatSidebar/ChatSidebar";
 import { SidebarWrapper } from "@/components/SidebarWrapper/SidebarWrapper";
 
@@ -8,11 +9,11 @@ export default function Layout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <>
-   
-      {children} 
-      {/* <ChatSidebar/> */}
+      <ChatSidebar />
+      {children}
     </>
   );
 }

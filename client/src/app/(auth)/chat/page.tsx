@@ -9,50 +9,10 @@ import { ChatTextarea } from "@/components/common/ChatTextarea/ChatTextarea";
 import { ChatComponent } from "@/components/ChatComponent/ChatComponent";
 
 export default function Chat() {
-//     const [isConnected, setIsConnected] = useState(socket.connected);
-//     const [fooEvents, setFooEvents] = useState<string>('');
-//     const biba: any[] = []
-//     useEffect(() => {
-//         function onConnect() {
-//           setIsConnected(true);
-//         }
-    
-//         function onDisconnect() {
-//           setIsConnected(false);
-//         }
-    
-//         function onFooEvent(value: any) {
-            
-//             biba.push(value.path)
-//             const a = biba.join('')
-//             console.log(a)
-//             setFooEvents(biba.join(''))
-//         }
-    
-//         socket.on('connect', onConnect);
-//         socket.on('disconnect', onDisconnect);
-//         socket.on('events', onFooEvent);
-//         return () => {
-//           socket.off('connect', onConnect);
-//           socket.off('disconnect', onDisconnect);
-//           socket.off('events', onFooEvent);
-//         };
-//       }, []);
 
-// const [value, setValue ] = useState('')
     return (
         <main>
-      {/* <div className={clsx(cls.biba)}>
-      
-       
-      
-         <input type="text" value={value} onChange={(e)=> setValue(e.target.value)} />
-         <button onClick={()=> socket.emit("message", {
-    chatUuid:"4493d807-99b6-4c1f-97f7-3bc058e9390b",
-    message: value
-})}>asdasd</button>
-      </div>*/}
-     <ChatComponent/>
+            <ChatComponent />
         </main>
     );
 }

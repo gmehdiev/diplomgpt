@@ -96,9 +96,6 @@ export class MessageGateway implements OnGatewayConnection {
       accumulate.join(''),
     );
     this.server.emit('events', {
-      // path: part.choices[0].delta.content,
-      // assistantMessageUuid: messages.assistantMessageUuid,
-      // assistanCurrentMessageUuid: messages.assistanCurrentMessageUuid,
       assistantMessage: assistantMessage,
     });
   }

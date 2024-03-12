@@ -1,9 +1,37 @@
-.nav {
-    right: 0;
-    top: 0;
-    position: absolute;
-    background-color: var(--bg-color);
+.wrapper {
     width: 320px;
     height: 100dvh;
+    position: absolute;
+    background-color: var(--bg-color);
+
     border-radius: 25px;
+    right: -320px;
+    transition: 0.3s all ease-in-out;
+}
+
+.open {
+    right: 0
+}
+
+.close {
+    right: -320px;
+}
+
+
+.Burger {
+    right: 340px;
+    position: absolute;
+    top: calc(100dvh / 2);
+    border: transparent 0;
+    background-color: transparent;
+}
+
+.nav {
+    position: relative
+}
+
+.test {
+    display: flex;
+    flex-direction: column;
+
 }

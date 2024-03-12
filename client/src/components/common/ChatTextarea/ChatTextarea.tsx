@@ -8,18 +8,18 @@ interface Props {
     handleClick: (value: string) => void
 }
 
-export const ChatTextarea = ({handleClick}: Props) => {
+export const ChatTextarea = ({ handleClick }: Props) => {
 
     const [value, setValue] = useState("");
 
     return <div className={clsx(cls.Wrapper)}>
         <ChatIcon className={clsx(cls.Icon)} />
-        <ResizableTextArea      
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder="Введите что нибудь"/>
+        <ResizableTextArea
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="Введите что нибудь" />
 
-       <Button  className={clsx(cls.Button)} theme={ButtonTheme.DEFAULT}
-       onClick={()=> handleClick(value)}>as</Button>
+        <Button className={clsx(cls.Button)} theme={ButtonTheme.DEFAULT}
+            onClick={() => handleClick(value)}>as</Button>
     </div>
 }

@@ -9,7 +9,7 @@ export default function Layout({
 }) {
   return (
     <>
-      <SidebarWrapper  />{children}
+      <SidebarWrapper /> {children}
     </>
   );
 }
