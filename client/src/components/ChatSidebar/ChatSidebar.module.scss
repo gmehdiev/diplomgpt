@@ -2,7 +2,7 @@
     width: 320px;
     height: 100dvh;
     position: absolute;
-    background-color: var(--bg-color);
+    background-color: var(--default-color);
 
     border-radius: 25px;
     right: -320px;
@@ -27,7 +27,9 @@
 }
 
 .nav {
-    position: relative
+    position: relative;
+    z-index: 1;
+
 }
 
 .test {

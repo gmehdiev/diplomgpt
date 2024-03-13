@@ -7,12 +7,15 @@ import { socket } from "@/socket";
 import { updateMessageCache, useGetAllMessageQuery } from "@/lib/api/api"
 import { useDispatch } from "react-redux"
 
-export const ChatComponent = ({ id }: { id: string }) => {
-    const { data, error, isLoading, isSuccess } = useGetAllMessageQuery(id)
+export const ChatComponent = ({ id }: { id?: string }) => {
+    const { data, error, isLoading, isSuccess } = useGetAllMessageQuery(id ?? '', {
+        skip: !id
+    })
     const dispatch = useDispatch();
-    console.log(id)
     const [assistant, setAssistant] = useState<string | null>(null);
     let biba: any[] = []
+
+
     function onFooEvent(value: any) {
         if ('userMessage' in value) {
             updateMessageCache(dispatch, value.userMessage, id)
@@ -36,6 +39,9 @@ export const ChatComponent = ({ id }: { id: string }) => {
         return () => {
             socket.off('events', onFooEvent);
         };
+        // if (id) {
+        //     getWsData(id)
+        // }
     }, []);
 
     const handleClick = (value: string) => {
@@ -47,7 +53,6 @@ export const ChatComponent = ({ id }: { id: string }) => {
     return <div className={clsx(cls.Wrapper)}>
         <div className={clsx(cls.Messages)}>
             {isSuccess && data.map((item: any) => <Message key={item.uuid} content={item.content} role={item.role} />)}
-
             {assistant && <Message content={assistant} role={'assistant'} />}
         </div>
 

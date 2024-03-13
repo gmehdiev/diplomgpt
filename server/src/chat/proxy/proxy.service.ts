@@ -8,7 +8,7 @@ import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class ProxyService {
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
   private async validateApiKey(proxyLink: string, apiKey: string) {
     const agent = new HttpsProxyAgent(proxyLink);
     const openai = new OpenAI({
@@ -28,7 +28,7 @@ export class ProxyService {
         apiKey: dto.apiKey,
       },
     });
-
+    console.log(dto);
     if (isExist) {
       throw new BadGatewayException('Уже существевт');
     }
@@ -43,6 +43,7 @@ export class ProxyService {
           usedCount: 0,
         },
       });
+      console.log('key added');
       return;
     }
     throw new BadGatewayException('Неверный апи ключ или прокси');

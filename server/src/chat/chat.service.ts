@@ -3,9 +3,7 @@ import { PrismaService } from '@prisma/prisma.service';
 
 @Injectable()
 export class ChatService {
-  constructor(
-    private readonly prismaService: PrismaService,
-  ) { }
+  constructor(private readonly prismaService: PrismaService) {}
 
   async create(uuid: string) {
     return this.prismaService.chat.create({
@@ -55,5 +53,4 @@ export class ChatService {
       },
     });
   }
-
 }

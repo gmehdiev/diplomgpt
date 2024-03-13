@@ -14,7 +14,7 @@ import { ChatService } from './chat.service';
 import { ChatDto, UpdateChatDto } from './dto/chat.dto';
 @Controller('chat')
 export class ChatController {
-  constructor(private readonly chatService: ChatService) { }
+  constructor(private readonly chatService: ChatService) {}
   @Post('')
   async create(@Body() dto: ChatDto, @Res() res: Response) {
     const chat = await this.chatService.create(dto.profileUuid);

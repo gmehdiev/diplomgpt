@@ -3,7 +3,7 @@ import clsx from "clsx";
 import cls from "./ChatSidebar.module.scss";
 import { FC, useState } from "react";
 import { Button, ButtonTheme } from "../common/Button/Button";
-import { useLazyCreateChatQuery, useGetAllChatQuery, useLazyDeleteChatQuery } from "@/lib/api/chat";
+import { useCreateChatMutation, useGetAllChatQuery } from "@/lib/api/chat";
 import { useGetUserQuery } from "@/lib/api/user";
 import Link from "next/link";
 import { ChatLink } from "../common/ChatLink/ChatLink";
@@ -16,8 +16,8 @@ export const ChatSidebar: FC<ChatSidebarInterface> = ({ }) => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const { data: userData } = useGetUserQuery('')
     const { data: allChats, isSuccess, refetch: refetchChats } = useGetAllChatQuery(userData?.profile.uuid, { skip: !userData?.profile?.uuid })
-    const [createChat] = useLazyCreateChatQuery()
-    const [deleteChat] = useLazyDeleteChatQuery()
+    const [createChat] = useCreateChatMutation()
+
     const handleClick = async () => {
         if (!userData?.profile.uuid) return
         await createChat({ profileUuid: userData?.profile.uuid })
@@ -33,9 +33,7 @@ export const ChatSidebar: FC<ChatSidebarInterface> = ({ }) => {
                     <Button theme={ButtonTheme.DEFAULT}>sad</Button>
                     <div className={clsx(cls.test)}>
                         {isSuccess && allChats.map(chat =>
-
                             <ChatLink key={chat.uuid} chat={chat} refetch={refetchChats} />
-
                         )}
                     </div>
                     <button onClick={async () => await handleClick()}>

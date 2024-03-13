@@ -11,6 +11,6 @@ export class ProxyController {
   async addApiKeyWithProxy(@Body() dto: ProxyDto, @Res() res: Response) {
     await this.proxyService.addKey(dto);
 
-    return res.status(200);
+    return res.status(200).json('ok');
   }
 }

@@ -9,4 +9,4 @@ import { ProxyModule } from '../proxy/proxy.module';
   controllers: [MessageController],
   imports: [ProxyModule],
 })
-export class MessageModule { }
+export class MessageModule {}

@@ -9,7 +9,7 @@ export class UserService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly configService: ConfigService,
-  ) { }
+  ) {}
 
   async save(user: Partial<User>) {
     const hashedPassword = this.hashPassword(user.password);

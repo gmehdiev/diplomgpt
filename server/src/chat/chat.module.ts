@@ -9,4 +9,4 @@ import { MessageModule } from './message/message.module';
   controllers: [ChatController],
   imports: [HttpModule, MessageModule],
 })
-export class ChatModule { }
+export class ChatModule {}

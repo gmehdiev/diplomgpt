@@ -22,11 +22,11 @@ export class MessageGateway implements OnGatewayConnection {
   constructor(
     private readonly messageService: MessageService,
     private readonly proxyService: ProxyService,
-  ) { }
+  ) {}
 
   @WebSocketServer()
   server: Server;
-  handleConnection(client: any) { }
+  handleConnection(client: any) {}
   @SubscribeMessage('message')
   async handleMessage(client: any, payload: any): Promise<string> {
     console.log(payload);
@@ -47,6 +47,11 @@ export class MessageGateway implements OnGatewayConnection {
     await this.sendMessage(messages);
   }
 
+  @SubscribeMessage('getMessages')
+  async getMessages(client: any, payload: { chatUuid: string }): Promise<any> {
+    const messages = await this.messageService.allMessages(payload.chatUuid);
+    this.server.emit('messages', messages);
+  }
   private async sendMessage(
     messages: MessageResponse | Omit<MessageResponse, 'userMessage'>,
   ) {

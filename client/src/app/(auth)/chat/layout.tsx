@@ -1,6 +1,5 @@
 'use client'
 import { ChatSidebar } from "@/components/ChatSidebar/ChatSidebar";
-import { SidebarWrapper } from "@/components/SidebarWrapper/SidebarWrapper";
 
 
 

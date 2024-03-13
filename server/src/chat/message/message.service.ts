@@ -6,7 +6,7 @@ import { MessageResponse } from './interface';
 
 @Injectable()
 export class MessageService {
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
   private convertMessage(messages: CurrentMessage[]) {
     const convertedMessages = messages.map<ChatCompletionMessageParam>(
       (item) => {

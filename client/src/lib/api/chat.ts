@@ -9,7 +9,7 @@ export const chatApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/chat/', credentials: 'include' }),
     tagTypes: ['Post'],
     endpoints: (builder) => ({
-        createChat: builder.query<ChatInterface, any>({
+        createChat: builder.mutation<ChatInterface, any>({
             query: (body) => ({
                 url: '',
                 method: 'POST',
@@ -19,13 +19,13 @@ export const chatApi = createApi({
         getAllChat: builder.query<ChatInterface[], any>({
             query: (uuid) => `${uuid}`,
         }),
-        deleteChat: builder.query<ChatInterface, any>({
+        deleteChat: builder.mutation<ChatInterface, any>({
             query: (uuid) => ({
                 url: `${uuid}`,
                 method: 'Delete',
             }),
         }),
-        renameChat: builder.query<ChatInterface, rename>({
+        renameChat: builder.mutation<ChatInterface, rename>({
             query: (body) => ({
                 url: `${body.uuid}`,
                 method: 'PATCH',
@@ -36,4 +36,4 @@ export const chatApi = createApi({
 })
 
 
-export const { useLazyCreateChatQuery, useGetAllChatQuery, useLazyDeleteChatQuery, useLazyRenameChatQuery } = chatApi
+export const { useCreateChatMutation, useGetAllChatQuery, useDeleteChatMutation, useRenameChatMutation } = chatApi
