@@ -1,5 +1,4 @@
 'use client'
-import { ChatSidebar } from "@/components/ChatSidebar/ChatSidebar";
 
 
 
@@ -11,7 +10,6 @@ export default function Layout({
 
   return (
     <>
-      <ChatSidebar />
       {children}
     </>
   );

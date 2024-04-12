@@ -11,6 +11,7 @@ export const ChatComponent = ({ id }: { id?: string }) => {
     const { data, error, isLoading, isSuccess } = useGetAllMessageQuery(id ?? '', {
         skip: !id
     })
+    console.log(data)
     const dispatch = useDispatch();
     const [assistant, setAssistant] = useState<string | null>(null);
     let biba: any[] = []
@@ -50,6 +51,7 @@ export const ChatComponent = ({ id }: { id?: string }) => {
             message: value
         })
     }
+    console.log(assistant)
     return <div className={clsx(cls.Wrapper)}>
         <div className={clsx(cls.Messages)}>
             {isSuccess && data.map((item: any) => <Message key={item.uuid} content={item.content} role={item.role} />)}

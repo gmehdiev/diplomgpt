@@ -2,6 +2,8 @@
 html[data-theme='light'] {
   --bg-color: #fff;
   --inverted-bg-color: #000000;
+  --color-primary:#a1a1aa;
+  --color-secondary:#52525b;
   --text-primary: #0f0f0f;
   --text-secondary: #666;
   --text-tertiary: #999;
@@ -11,6 +13,8 @@ html[data-theme='light'] {
 html[data-theme='dark']  {
   --bg-color: rgb(52,53,65);
   --inverted-bg-color: #000000;
+  --color-primary:#52525b;
+  --color-secondary:#27272a;
   --text-primary: #ececf1;
   --text-secondary: #c5c5d2;
   --text-tertiary: #999;

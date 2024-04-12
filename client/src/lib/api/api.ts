@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { useAppDispatch } from '../redux/hooks';
 import { AppDispatch } from '../redux/store';
 
 export const messageApi = createApi({

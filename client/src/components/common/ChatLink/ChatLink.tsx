@@ -21,7 +21,7 @@ export const ChatLink = (props: Props) => {
     const [renameChat] = useRenameChatMutation()
     const [name, setName] = useState('')
     const pathname = usePathname()
-
+    const [isVisible, setIsVisible] = useState(false)
 
     const handleDelete = async (uuid: string) => {
         await deleteChat(uuid)
@@ -38,20 +38,30 @@ export const ChatLink = (props: Props) => {
         <input className={cls.input} type="text" value={name} onChange={(e) => setName(e.target.value)} />
         <button className={cls.button} onClick={async () => { handleRename({ uuid: chat.uuid, name }) }}><CheckIcon className={cls.icon} /></button>
     </div>
-    return <div className={clsx(cls.wrapper, { [cls.selected]: pathname.split('/')[2] === chat.uuid })}>
 
-
-        <Link href={`/chat/${chat.uuid}`} className={cls.Link}>
+    return <Link href={`/chat/${chat.uuid}`} className={clsx(cls.wrapper, { [cls.selected]: pathname.split('/')[2] === chat.uuid })}
+        onMouseEnter={() => setIsVisible(true)}
+        onMouseLeave={() => setIsVisible(false)}>
+        <span className={clsx(cls.text, { [cls.textHover]: isVisible })}>
             {chat.name || chat.uuid.split('-')[1]}
-        </Link>
-        <div>
+        </span>
+
+        {isVisible && <div className={cls.buttonGroup}>
             <button className={cls.button} onClick={async () => await handleDelete(chat.uuid)}>
                 <TrashIcon className={cls.icon} />
             </button>
             <button className={cls.button} onClick={() => { setEditMode(prev => !prev) }}>
                 <EditIcon className={cls.icon} />
             </button>
-        </div>
-
-    </div>
+        </div>}
+    </Link>
 }
+{/* <div className={clsx(cls.wrapper, { [cls.selected]: pathname.split('/')[2] === chat.uuid })}
+        onMouseEnter={() => setIsVisible(true)}
+        onMouseLeave={() => setIsVisible(false)}
+    >
+        <Link href={`/chat/${chat.uuid}`} className={clsx(cls.Link, { [cls.LinkHover]: isVisible })} >
+            {chat.name || chat.uuid.split('-')[1]}
+        </Link>
+        
+    </div> */}

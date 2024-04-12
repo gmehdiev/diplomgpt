@@ -6,6 +6,9 @@ import { ChatIcon } from "../../../../public/icons/sidebar/chat.icon";
 import { ImageIcon } from "../../../../public/icons/sidebar/image.icon";
 import Image from "next/image";
 import { UILink } from "@/components/common/UILink/UILink";
+import { Button, ButtonTheme } from "@/components/common/Button/Button";
+import { ChatLink } from "@/components/common/ChatLink/ChatLink";
+import { ChatSidebar } from "../ChatLinks/ChatLInks";
 interface SidebarInterface {
     setSidebarOpen: Dispatch<SetStateAction<boolean>>
 }
@@ -21,9 +24,9 @@ export const Sidebar = ({ setSidebarOpen }: SidebarInterface) => {
                 height={100}
             />
             <UILink href="/chat" Icon={ChatIcon} setSidebarOpen={setSidebarOpen}>Chat</UILink>
-            <UILink href="/image" Icon={ImageIcon} setSidebarOpen={setSidebarOpen}>Image</UILink>
-            <UILink href="/proxy" Icon={ImageIcon} setSidebarOpen={setSidebarOpen}>Image</UILink>
-
+            {/* <UILink href="/image" Icon={ImageIcon} setSidebarOpen={setSidebarOpen}>Image</UILink> */}
+            <UILink href="/proxy" Icon={ImageIcon} setSidebarOpen={setSidebarOpen}>proxy</UILink>
+            <ChatSidebar />
             <ThemeSwitcher />
         </div>
     </div>;
