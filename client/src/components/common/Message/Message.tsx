@@ -3,7 +3,11 @@ import Image from 'next/image'
 import hamster from '../../../../public/image/logo.jpg'
 import user from '../../../../public/image/user.jpg'
 import clsx from 'clsx'
-
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
+import { useRef, useEffect, useState } from 'react'
+import language from 'react-syntax-highlighter/dist/esm/languages/hljs/1c'
+import { CodeBlock } from '@/components/CodeBlock/CodeBlock'
 interface Message {
     role: string,
     content: string
@@ -11,7 +15,50 @@ interface Message {
 
 export const Message = (props: Message) => {
     const { role, content } = props
-    console.log(role)
+    const codeRef = useRef(null);
+
+    useEffect(() => {
+        if (codeRef.current) {
+            hljs.highlightElement(codeRef.current);
+
+        }
+    }, [language, content]);
+
+    const regex = /(```)([\s\S]*?)\1/g;
+    let parts: any = [];
+    const [reactivePaths, setReactivePaths] = useState<any[]>([]);
+    useEffect(() => {
+
+        let lastIndex = 0;
+        let match;
+
+        while ((match = regex.exec(content)) !== null) {
+            if (match.index > lastIndex) {
+                parts.push({
+                    content: content.slice(lastIndex, match.index),
+                    isCode: false,
+                });
+                setReactivePaths(parts)
+            }
+            parts.push({
+                content: match[0],
+                isCode: true,
+            });
+            setReactivePaths(parts)
+            lastIndex = regex.lastIndex;
+        }
+        if (lastIndex < content.length) {
+            parts.push({
+                content: content.slice(lastIndex),
+                isCode: false,
+            });
+            setReactivePaths(parts)
+
+        }
+
+        console.log(parts);
+    }, [content]);
+
     return <div className={clsx(cls.wrapper, { [cls.user]: role === 'user', [cls.assistant]: role === 'assistant' })}>
         <div className={cls.roleWrapper}>
             <Image src={role === 'assistant' ? hamster : user} width={48} height={48} alt="asd" className={cls.image} />
@@ -20,7 +67,15 @@ export const Message = (props: Message) => {
 
 
         <pre className={cls.pre}>
-            {content}
+            {reactivePaths.map((parts, index) => {
+                if (parts.isCode) {
+                    return <CodeBlock key={index} >
+                        {parts.content}
+                    </CodeBlock>
+                } else {
+                    return <span key={index}>{parts.content}</span>
+                }
+            })}
         </pre>
     </div>
 }

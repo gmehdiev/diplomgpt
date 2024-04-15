@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 // import { parse } from "cookie";
 import { parse, splitCookiesString } from 'set-cookie-parser'
-import { ref } from "yup";
 const privateRoutes = ["/chat", '/chat/:path*', '/proxy'];
 
 export async function middleware(request: NextRequest) {
@@ -10,13 +9,16 @@ export async function middleware(request: NextRequest) {
   let cookie = request.cookies.get("refreshToken");
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("refreshToken", cookie?.value);
-  const res = await fetch(`http://localhost:3000/auth/refresh`, {
+  const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}:3000/auth/refresh`, {
     method: "GET",
     headers: requestHeaders,
   });
   let response: NextResponse
+  console.log(!privateRoutes.includes(request.nextUrl.pathname, res.status))
   if (res.status === 201 && !privateRoutes.includes(request.nextUrl.pathname)) {
+
     const absoluteURL = new URL('/chat', request.url)
+      
     response = NextResponse.redirect(absoluteURL.toString())
   } else {
     response = NextResponse.next();

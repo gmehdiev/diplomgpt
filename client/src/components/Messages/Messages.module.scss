@@ -1,0 +1,14 @@
+.Messages {
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+
+    &::-webkit-scrollbar-thumb {
+        width: 8px;
+        background-color: var(--inverted-bg-color);
+        border-radius: 20px;
+    }
+}
