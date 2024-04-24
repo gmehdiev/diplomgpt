@@ -26,14 +26,32 @@
 
 .Burger {
   position: absolute;
-  right: -30px;
+  right: -40px;
   top: calc(100dvh / 2);
   border: transparent 0;
-  background-color: transparent;
+  width: 36px;
+  height: 24px;
+  border-radius: 4px;
+  background-color: rgb(0, 132, 255);
+  cursor: pointer;
+  z-index: 1;
 }
 
 
 
 .nav {
   position: absolute;
+}
+
+.arrow {
+  width: 25px;
+  height: 25px;
+  color: white;
+  transition: transform 0.2s ease; 
+  transform: rotate(180deg);
+
+}
+
+.rotate {
+  transform: rotate(360deg);
 }

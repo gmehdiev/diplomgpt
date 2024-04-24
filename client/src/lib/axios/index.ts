@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = `http://${process.env.NEXT_PUBLIC_API_URL}:3000`
+export const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`
 
 const api = axios.create({
     withCredentials: true,

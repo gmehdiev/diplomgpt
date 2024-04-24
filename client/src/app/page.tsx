@@ -9,7 +9,6 @@ export default function Home() {
 
 
   const [login, setLogin] = useState(true);
-
   return (
     <main>
       {login ? <LoginForm /> : <RegistrationForm />}

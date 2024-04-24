@@ -52,7 +52,7 @@ export const checkAuth = createAsyncThunk(
   'auth/checkAuth',
   async function (_, { rejectWithValue }) {
     try {
-      const response = await axios.get<{ accessToken: string }>(`http://${process.env.NEXT_PUBLIC_API_URL}:3000/auth/refresh`, { withCredentials: true })
+      const response = await axios.get<{ accessToken: string }>(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, { withCredentials: true })
       localStorage.setItem('token', response.data.accessToken)
       console.log(response.data.accessToken)
     } catch (error: any) {

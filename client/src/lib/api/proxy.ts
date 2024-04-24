@@ -13,7 +13,7 @@ export interface rename {
 }
 export const proxyApi = createApi({
     reducerPath: 'proxyApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `http://${process.env.NEXT_PUBLIC_API_URL}:3000/proxy/`, credentials: 'include' }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/proxy/`, credentials: 'include' }),
     tagTypes: ['Post'],
     endpoints: (builder) => ({
         sendProxy: builder.mutation<any, any>({

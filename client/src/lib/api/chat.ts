@@ -6,7 +6,7 @@ export interface rename {
 }
 export const chatApi = createApi({
     reducerPath: 'chatApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `http://${process.env.NEXT_PUBLIC_API_URL}:3000/chat/`, credentials: 'include' }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/chat/`, credentials: 'include' }),
     tagTypes: ['Post'],
     endpoints: (builder) => ({
         createChat: builder.mutation<ChatInterface, any>({

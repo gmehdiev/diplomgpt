@@ -4,6 +4,7 @@ import { Button, ButtonTheme } from "../Button/Button"
 import { ClassAttributes, useEffect, useRef, useState } from "react";
 import { ResizableTextArea } from "../ResizableTextarea/ResizableTextarea";
 import { ChatIcon } from "../../../../public/icons/sidebar/chat.icon";
+import { SendIcon } from "../../../../public/icons/chat/send.icon";
 interface Props {
     handleClick: (value: string) => void
 }
@@ -22,6 +23,6 @@ export const ChatTextarea = ({ handleClick }: Props) => {
         <Button className={clsx(cls.Button)} theme={ButtonTheme.DEFAULT}
             onClick={() => {
                 handleClick(value);
-            }}>as</Button>
+            }}><SendIcon className={clsx(cls.SendButton)} /></Button>
     </div>
 }

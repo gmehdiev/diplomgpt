@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-const URL = `ws://${process.env.NEXT_PUBLIC_API_URL}:3001/events`;
+const URL = `${process.env.NEXT_PUBLIC_API_WS_URL}`;
 
 export const socket = io(URL, {
     withCredentials: true

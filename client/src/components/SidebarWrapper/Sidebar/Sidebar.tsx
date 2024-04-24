@@ -24,7 +24,6 @@ export const Sidebar = ({ setSidebarOpen }: SidebarInterface) => {
                 height={100}
             />
             <UILink href="/chat" Icon={ChatIcon} setSidebarOpen={setSidebarOpen}>Chat</UILink>
-            {/* <UILink href="/image" Icon={ImageIcon} setSidebarOpen={setSidebarOpen}>Image</UILink> */}
             <UILink href="/proxy" Icon={ImageIcon} setSidebarOpen={setSidebarOpen}>proxy</UILink>
             <ChatSidebar />
             <ThemeSwitcher />

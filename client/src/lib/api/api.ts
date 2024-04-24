@@ -19,9 +19,9 @@ export interface MessagesResponse {
 
 export const messageApi = createApi({
     reducerPath: 'messageApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `http://${process.env.NEXT_PUBLIC_API_URL}:3000/message/`, credentials: 'include' }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${process.env.NEXT_PUBLIC_API_URL}/message/`, credentials: 'include' }),
     endpoints: (builder) => ({
-        getAllMessage: builder.query<Messages[], string>({
+        getAllMessage: builder.query<MessagesResponse[], string>({
             query: (id) => `${id}`,
         }),
     }),
@@ -31,7 +31,8 @@ export const messageApi = createApi({
 export const { useGetAllMessageQuery } = messageApi
 
 
-export const updateMessageCache = (dispatch: AppDispatch, newChat, id: string) => {
+export const updateMessageCache = (dispatch: AppDispatch, newChat: MessagesResponse, id: string) => {
+    console.log({newChat})
     dispatch(
         messageApi.util.updateQueryData('getAllMessage', id, (draftChats) => {
             draftChats.push(newChat);

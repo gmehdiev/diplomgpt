@@ -11,7 +11,7 @@ import { MessageService } from './message.service';
 import { ProxyService } from '../proxy/proxy.service';
 import { MessageResponse } from './interface';
 
-@WebSocketGateway(3001, {
+@WebSocketGateway(3002, {
   namespace: 'events',
   cors: {
     origin: true,

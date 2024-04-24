@@ -17,6 +17,8 @@ export const ChatComponent = ({ id }: { id?: string }) => {
 
 
     function onFooEvent(value: any) {
+        if (!id) return
+
         if ('userMessage' in value) {
             updateMessageCache(dispatch, value.userMessage, id)
         }

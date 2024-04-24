@@ -21,13 +21,13 @@ export const ChatSidebar = ({ }) => {
 
     return (
         <div className={clsx(cls.wrapper)}>
-            <div className={clsx(cls.test)}>
+            <div className={clsx(cls.chatLinks)}>
                 {isSuccess && allChats.map(chat =>
                     <ChatLink key={chat.uuid} chat={chat} refetch={refetchChats} />
                 )}
             </div>
-            <button onClick={async () => await handleClick()}>
-                create
+            <button className={clsx(cls.createButton)} onClick={async () => await handleClick()}>
+                Create chat
             </button>
         </div>
     );

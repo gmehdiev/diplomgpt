@@ -5,25 +5,27 @@ import { parse, splitCookiesString } from 'set-cookie-parser'
 const privateRoutes = ["/chat", '/chat/:path*', '/proxy'];
 
 export async function middleware(request: NextRequest) {
-
   let cookie = request.cookies.get("refreshToken");
   const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("refreshToken", cookie?.value);
-  const res = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}:3000/auth/refresh`, {
+  requestHeaders.set("refreshToken", cookie?.value ?? '');
+
+    const res = await fetch(`http://nest:3001/auth/refresh`, {
     method: "GET",
     headers: requestHeaders,
-  });
+  });  
+
+
   let response: NextResponse
   console.log(!privateRoutes.includes(request.nextUrl.pathname, res.status))
-  if (res.status === 201 && !privateRoutes.includes(request.nextUrl.pathname)) {
+  // if (res.status === 201 && !privateRoutes.includes(request.nextUrl.pathname)) {
 
-    const absoluteURL = new URL('/chat', request.url)
+  //   const absoluteURL = new URL('/chat', request.url)
       
-    response = NextResponse.redirect(absoluteURL.toString())
-  } else {
-    response = NextResponse.next();
-  }
-
+  //   response = NextResponse.redirect(absoluteURL.toString())
+  // } else {
+    
+  // }
+response = NextResponse.next();
   const cookieHeader = res.headers.getSetCookie()
   if (cookieHeader) {
     const parcesCookie = parse(splitCookiesString(cookieHeader[0]));

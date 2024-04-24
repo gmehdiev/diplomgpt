@@ -9,7 +9,7 @@ import { Button, ButtonTheme } from "../common/Button/Button";
 import cls from "./ThemeSwithcer.module.scss";
 export const ThemeSwitcher = () => {
   async function setTheme(theme: string) {
-    const response = await fetch(`http://${process.env.NEXT_PUBLIC_API_URL}:8080/api/theme`, {
+    const response = await fetch(`https://${process.env.NEXT_PUBLIC_API_NEXT_URL}/api/theme`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

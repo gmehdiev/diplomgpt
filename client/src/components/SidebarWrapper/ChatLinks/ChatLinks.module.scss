@@ -1,8 +1,20 @@
-.test {
+.chatLinks {
     display: flex;
     flex-direction: column;
+    gap: 2px;
+    
 }
 
 .wrapper {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    gap: 4px;
+}
+
+.createButton {
+    padding: 4px;
+    border-radius: 8px;
+    background-color: #645dce;
+    border: none;
 }

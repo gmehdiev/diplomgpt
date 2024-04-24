@@ -34,7 +34,7 @@ export const ChatLink = (props: Props) => {
         setEditMode(prev => !prev)
     }
     const [editMode, setEditMode] = useState(false)
-    if (editMode) return <div className={clsx(cls.wrapper)}>
+    if (editMode) return <div className={clsx(cls.wrapper, cls.editMode)}>
         <input className={cls.input} type="text" value={name} onChange={(e) => setName(e.target.value)} />
         <button className={cls.button} onClick={async () => { handleRename({ uuid: chat.uuid, name }) }}><CheckIcon className={cls.icon} /></button>
     </div>
