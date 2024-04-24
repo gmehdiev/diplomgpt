@@ -32,10 +32,29 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+  next:
+    container_name: next_container
+    build: ../client
+    ports:
+      - "3000:3000"
+    networks:
+      - postgres
+    restart: unless-stopped
+  nest:
+    container_name: nest_container
+    build: ../server
+    ports:
+      - "3001:3001"
+      - "3002:3002"
+    networks:
+      - postgres
+
+    restart: unless-stopped
 
 networks:
   postgres:
     driver: bridge
+
 
 volumes:
   postgres:
