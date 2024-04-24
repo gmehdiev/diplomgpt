@@ -110,6 +110,7 @@ export class AuthController {
       secure:
         this.configService.get('NODE_ENV', 'development') === 'production',
       path: '/',
+      domain:'.gmehdiev.website'
     });
     res.cookie(ACCESS_TOKEN, tokens.accessToken, {
       httpOnly: true,
@@ -118,6 +119,8 @@ export class AuthController {
       secure:
         this.configService.get('NODE_ENV', 'development') === 'production',
       path: '/',
+    domain:'.gmehdiev.website'
+
     });
     console.log('s end');
     res.status(HttpStatus.CREATED).json({ a: 1 });
