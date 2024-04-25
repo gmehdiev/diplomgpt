@@ -7,7 +7,6 @@ export class MessageController {
 
   @Get(':uuid')
   async getAllMessage(@Param('uuid', new ParseUUIDPipe()) uuid: string) {
-    console.log(uuid)
     return this.messageService.allMessages(uuid);
   }
 }

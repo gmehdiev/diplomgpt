@@ -14,6 +14,8 @@ export const ChatComponent = ({ id }: { id?: string }) => {
     const dispatch = useDispatch();
     const [assistant, setAssistant] = useState<string | null>(null);
     let biba: any[] = []
+    const [isConnected, setIsConnected] = useState(false);
+    const [transport, setTransport] = useState("N/A");
 
 
     function onFooEvent(value: any) {
@@ -37,11 +39,30 @@ export const ChatComponent = ({ id }: { id?: string }) => {
 
     }
     useEffect(() => {
+        if (socket.connected) {
+            onConnect();
+        }
+        function onConnect() {
+            setIsConnected(true);
+            setTransport(socket.io.engine.transport.name);
+
+            socket.io.engine.on("upgrade", (transport) => {
+                setTransport(transport.name);
+            });
+        }
+
+        function onDisconnect() {
+            setIsConnected(false);
+            setTransport("N/A");
+        }
+        socket.on("connect", onConnect);
+        socket.on("disconnect", onDisconnect);
         socket.on('events', onFooEvent);
         return () => {
             socket.off('events', onFooEvent);
+            socket.off("connect", onConnect);
+            socket.off("disconnect", onDisconnect);
         };
-
     }, []);
 
     const handleClick = (value: string) => {
@@ -51,6 +72,8 @@ export const ChatComponent = ({ id }: { id?: string }) => {
         })
     }
     return <div className={clsx(cls.Wrapper)}>
+        <p>Status: {isConnected ? "connected" : "disconnected"}</p>
+        <p>Transport: {transport}</p>
         <Messages id={id} assistant={assistant} />
         <ChatTextarea handleClick={handleClick} />
     </div>

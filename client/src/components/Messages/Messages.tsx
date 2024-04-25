@@ -19,7 +19,6 @@ export const Messages = (props: MessagesProps) => {
     const scrollToBottom = () => {
         if (messagesRef.current) {
             messagesRef.current.scrollIntoView({ behavior: "smooth" });
-            console.log(messagesRef.current.style.overflowY)
         }
     };
 

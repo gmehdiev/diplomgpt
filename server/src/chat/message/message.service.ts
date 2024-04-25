@@ -116,7 +116,6 @@ export class MessageService {
     chatUuid: string,
     messageUuid: string,
   ): Promise<Omit<MessageResponse, 'userMessage'>> {
-    console.log(messageUuid);
     await this.prismaService.currentMessage.updateMany({
       where: {
         messageUuid: messageUuid,

@@ -29,8 +29,6 @@ export class MessageGateway implements OnGatewayConnection {
   handleConnection(client: any) {}
   @SubscribeMessage('message')
   async handleMessage(client: any, payload: any): Promise<string> {
-    console.log(payload);
-
     const messages = await this.messageService.addUserMessage(
       payload.chatUuid,
       payload.message,
@@ -56,7 +54,6 @@ export class MessageGateway implements OnGatewayConnection {
     messages: MessageResponse | Omit<MessageResponse, 'userMessage'>,
   ) {
     const apiKey = await this.proxyService.getApiKey();
-    console.log(messages);
     if (!apiKey) {
       this.server.emit('events', {
         path: null,
@@ -87,7 +84,6 @@ export class MessageGateway implements OnGatewayConnection {
     });
     const accumulate: string[] = [];
     for await (const part of completion) {
-      console.log(part.choices[0].delta.content);
       accumulate.push(part.choices[0].delta.content);
       this.server.emit('events', {
         path: part.choices[0].delta.content,

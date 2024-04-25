@@ -28,7 +28,6 @@ export class ProxyService {
         apiKey: dto.apiKey,
       },
     });
-    console.log(dto);
     if (isExist) {
       throw new BadGatewayException('Уже существевт');
     }
@@ -43,7 +42,6 @@ export class ProxyService {
           usedCount: 0,
         },
       });
-      console.log('key added');
       return;
     }
     throw new BadGatewayException('Неверный апи ключ или прокси');

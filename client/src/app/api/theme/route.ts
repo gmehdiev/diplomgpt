@@ -8,7 +8,6 @@ const THEME_LIGHT = 'light';
 
 export async function GET() {
     const theme = cookieTheme();
-    console.log(theme)
    return NextResponse.json({theme:theme?.value
 } );
 }

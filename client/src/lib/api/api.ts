@@ -32,7 +32,6 @@ export const { useGetAllMessageQuery } = messageApi
 
 
 export const updateMessageCache = (dispatch: AppDispatch, newChat: MessagesResponse, id: string) => {
-    console.log({newChat})
     dispatch(
         messageApi.util.updateQueryData('getAllMessage', id, (draftChats) => {
             draftChats.push(newChat);

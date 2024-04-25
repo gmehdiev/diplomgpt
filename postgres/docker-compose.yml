@@ -49,7 +49,7 @@ services:
     networks:
       - postgres
 
-    restart: unless-stopped
+  #   restart: unless-stopped
 
 networks:
   postgres:

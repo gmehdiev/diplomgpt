@@ -41,7 +41,6 @@ export const handleLogin = createAsyncThunk(
   async function ({ email, password, rememberMe }: { email: string, password: string, rememberMe: boolean }, { rejectWithValue }) {
     try {
       const response = await login(email, password, rememberMe)
-      console.log(response)
     } catch (error: any) {
       console.log(error)
       return rejectWithValue(error.message)
@@ -55,7 +54,6 @@ export const checkAuth = createAsyncThunk(
     try {
       const response = await axios.get<{ accessToken: string }>(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, { withCredentials: true })
       localStorage.setItem('token', response.data.accessToken)
-      console.log(response.data.accessToken)
     } catch (error: any) {
       return rejectWithValue(error?.message)
     }

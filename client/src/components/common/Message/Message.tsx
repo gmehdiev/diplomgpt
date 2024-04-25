@@ -56,7 +56,6 @@ export const Message = (props: Message) => {
 
         }
 
-        console.log(parts);
     }, [content]);
 
     return <div className={clsx(cls.wrapper, { [cls.user]: role === 'user', [cls.assistant]: role === 'assistant' })}>

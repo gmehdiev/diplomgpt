@@ -6,7 +6,6 @@ const privateRoutes = ["/chat", '/chat/:path*', '/proxy'];
 
 export async function middleware(request: NextRequest) {
   let cookie = request.cookies.get("refreshToken");
-  console.log(cookie)
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("refreshToken", cookie?.value ?? '');
 
@@ -17,7 +16,6 @@ export async function middleware(request: NextRequest) {
 
 
   let response: NextResponse
-  console.log(!privateRoutes.includes(request.nextUrl.pathname, res.status))
   // if (res.status === 201 && !privateRoutes.includes(request.nextUrl.pathname)) {
 
   //   const absoluteURL = new URL('/chat', request.url)
@@ -27,9 +25,7 @@ export async function middleware(request: NextRequest) {
     
   // }
 response = NextResponse.next();
-console.log(res.headers)
   const cookieHeader = res.headers.getSetCookie()
-  console.log(cookieHeader)
   if (cookieHeader) {
     const parcesCookie = parse(splitCookiesString(cookieHeader[0]));
     const refreshToken = parcesCookie[0]
@@ -58,7 +54,6 @@ console.log(res.headers)
         sameSite: 'lax',
         domain:'.gmehdiev.website'
       })
-      console.log('set')
     }
 
   }
