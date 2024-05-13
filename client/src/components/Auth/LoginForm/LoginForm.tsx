@@ -55,7 +55,7 @@ export const LoginForm = () => {
 
           {...register("password")}
         />
-        <Button theme={ButtonTheme.BLUE} type="submit">
+        <Button theme={ButtonTheme.BLUE} type="submit" className={clsx(cls.button)}>
           Войти
         </Button>
       </form>

@@ -64,7 +64,7 @@ export const RegistrationForm = () => {
           error={errors.passwordRepeat?.message}
 
         />
-        <Button theme={ButtonTheme.BLUE} type="submit" >
+        <Button theme={ButtonTheme.BLUE} type="submit" className={clsx(cls.button)}>
           Зарегистрироваться
         </Button>
       </form>
