@@ -53,6 +53,7 @@ export class MessageGateway implements OnGatewayConnection {
   private async sendMessage(
     messages: MessageResponse | Omit<MessageResponse, 'userMessage'>,
   ) {
+    console.log(messages)
     const apiKey = await this.proxyService.getApiKey();
     if (!apiKey) {
       this.server.emit('events', {

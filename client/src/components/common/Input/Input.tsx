@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import cls from "./Input.module.scss";
-import { FC, InputHTMLAttributes, memo, useState } from "react";
+import { FC, ForwardedRef, InputHTMLAttributes, forwardRef, memo, useState } from "react";
 import { EyeIcon } from "../../../../public/icons/auth/eye.icon";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -8,10 +8,12 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   icon?: JSX.Element;
   isPassword?: boolean;
+  error?: string
+  ref?: ForwardedRef<HTMLInputElement>;
 }
 
-export const Input: FC<InputProps> = memo((props) => {
-  const { className, isPassword, label, type, icon, ...other } = props;
+export const Input: FC<InputProps> = forwardRef((props, ref) => {
+  const { className, isPassword, label, type, icon, error, ...other } = props;
   const [seePassword, setSeePassword] = useState(false);
   return (
     <div>
@@ -20,6 +22,7 @@ export const Input: FC<InputProps> = memo((props) => {
         <div className={clsx(cls.icon)}>{icon}</div>
         <input
           {...other}
+          ref={ref}
           className={clsx(cls.Input)}
           type={seePassword ? "text" : type}
         />
@@ -32,7 +35,7 @@ export const Input: FC<InputProps> = memo((props) => {
             <EyeIcon />
           </button>
         )}
-        <p className={clsx(cls.p)}>error</p>
+        {error && <p className={clsx(cls.p)}>{error}</p>}
       </div>
     </div>
   );

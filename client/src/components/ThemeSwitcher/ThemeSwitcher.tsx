@@ -1,15 +1,13 @@
 "use client";
 
-import { SunIcon } from "../../../public/icons/theme/sun.icon";
-import { MoonIcon } from "../../../public/icons/theme/moon.icon";
-import styles from "./ThemeSwithcer.module.css";
+
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Button, ButtonTheme } from "../common/Button/Button";
 import cls from "./ThemeSwithcer.module.scss";
 export const ThemeSwitcher = () => {
   async function setTheme(theme: string) {
-    const response = await fetch(`https://${process.env.NEXT_PUBLIC_API_NEXT_URL}/api/theme`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_NEXT_URL}/api/theme`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

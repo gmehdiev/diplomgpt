@@ -1,0 +1,24 @@
+.wrapper {
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subWrapper {
+    background-color: rgb(147, 150, 185);
+    padding: 16px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.button {
+    height: 24px;
+    width: 100%;
+    background-color: #2f00ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}

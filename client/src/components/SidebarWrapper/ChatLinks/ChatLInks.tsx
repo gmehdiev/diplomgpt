@@ -3,7 +3,6 @@ import clsx from "clsx";
 import cls from "./ChatLinks.module.scss";
 import { useCreateChatMutation, useGetAllChatQuery } from "@/lib/api/chat";
 import { useGetUserQuery } from "@/lib/api/user";
-import { Button, ButtonTheme } from "@/components/common/Button/Button";
 import { ChatLink } from "@/components/common/ChatLink/ChatLink";
 
 

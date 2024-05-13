@@ -2,20 +2,22 @@ import { ChatTextarea } from "../common/ChatTextarea/ChatTextarea"
 import clsx from "clsx"
 import cls from "./ChatComponent.module.scss"
 import { useEffect, useState } from "react"
-import { Message } from "../common/Message/Message"
 import { socket } from "@/socket";
-import { updateMessageCache, useGetAllMessageQuery } from "@/lib/api/api"
+import { updateMessageCache } from "@/lib/api/api"
 import { useDispatch } from "react-redux"
 import { Messages } from "../Messages/Messages"
+import { useSearchParams } from "next/navigation"
 
 export const ChatComponent = ({ id }: { id?: string }) => {
-
 
     const dispatch = useDispatch();
     const [assistant, setAssistant] = useState<string | null>(null);
     let biba: any[] = []
     const [isConnected, setIsConnected] = useState(false);
     const [transport, setTransport] = useState("N/A");
+    const searchParams = useSearchParams()
+    console.log(searchParams.getAll('text'))
+
 
 
     function onFooEvent(value: any) {
@@ -58,6 +60,10 @@ export const ChatComponent = ({ id }: { id?: string }) => {
         socket.on("connect", onConnect);
         socket.on("disconnect", onDisconnect);
         socket.on('events', onFooEvent);
+
+        if (searchParams.getAll('text').length) {
+            handleClick(searchParams.getAll('text')[0])
+        }
         return () => {
             socket.off('events', onFooEvent);
             socket.off("connect", onConnect);

@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("refreshToken", cookie?.value ?? '');
 
-    const res = await fetch(`http://nest:3001/auth/refresh`, {
+    const res = await fetch(`http://localhost:3001/auth/refresh`, {
     method: "GET",
     headers: requestHeaders,
   });  
@@ -41,7 +41,7 @@ response = NextResponse.next();
         httpOnly: refreshToken.httpOnly,
         secure: refreshToken.secure,
         sameSite: 'lax',
-        domain:'.gmehdiev.website'
+        // domain:'.gmehdiev.website'
       })
       response.cookies.set({
         name: token.name,
@@ -52,7 +52,7 @@ response = NextResponse.next();
         httpOnly: token.httpOnly,
         secure: refreshToken.secure,
         sameSite: 'lax',
-        domain:'.gmehdiev.website'
+        // domain:'.gmehdiev.website'
       })
     }
 
