@@ -3,7 +3,7 @@ import clsx from "clsx";
 import cls from "./ChatComponent.module.scss";
 import { useEffect, useState } from "react";
 import { socket } from "@/socket";
-import { updateMessageCache } from "@/lib/api/api";
+import { updateMessageCache, useGetAllMessageQuery } from "@/lib/api/api";
 import { useDispatch } from "react-redux";
 import { Messages } from "../Messages/Messages";
 import { useSearchParams } from "next/navigation";
@@ -41,6 +41,11 @@ export const ChatComponent = ({ id }: { id?: string }) => {
       updateMessageCache(dispatch, value.assistantMessage, id);
     }
   }
+
+  const { data, isSuccess } = useGetAllMessageQuery(id ?? "", {
+    skip: !id,
+  });
+
   useEffect(() => {
     if (socket.connected) {
       onConnect();
@@ -63,7 +68,7 @@ export const ChatComponent = ({ id }: { id?: string }) => {
     socket.on("events", onFooEvent);
     socket.on("nobalance", noBalance);
 
-    if (searchParams.getAll("text").length) {
+    if (searchParams.getAll("text").length && isSuccess && !data?.length) {
       handleClick(searchParams.getAll("text")[0]);
     }
     return () => {
@@ -78,7 +83,7 @@ export const ChatComponent = ({ id }: { id?: string }) => {
     socket.emit("message", {
       chatUuid: id,
       message: value,
-      userUuid: userData.user.uuid,
+      userUuid: userData?.user.uuid,
     });
   };
   return (

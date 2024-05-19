@@ -10,24 +10,24 @@ import { Button, ButtonTheme } from "@/components/common/Button/Button";
 import { ChatLink } from "@/components/common/ChatLink/ChatLink";
 import { ChatSidebar } from "../ChatLinks/ChatLInks";
 interface SidebarInterface {
-    setSidebarOpen: Dispatch<SetStateAction<boolean>>
+  setSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
 export const Sidebar = ({ setSidebarOpen }: SidebarInterface) => {
-
-
-    return <div className={clsx(cls.wrapper)}>
-        <div className={clsx(cls.Sidebar)}>
-            <Image
-                src="/image/logo.jpg"
-                alt="хомяк с пистолетом"
-                width={100}
-                height={100}
-            />
-            <UILink href="/chat" Icon={ChatIcon} setSidebarOpen={setSidebarOpen}>Chat</UILink>
-            <UILink href="/proxy" Icon={ImageIcon} setSidebarOpen={setSidebarOpen}>proxy</UILink>
-            <ChatSidebar />
-            <ThemeSwitcher />
-        </div>
-    </div>;
-
-}
+  return (
+    <div className={clsx(cls.wrapper)}>
+      <div className={clsx(cls.Sidebar)}>
+        <Image
+          src="/image/logo.jpg"
+          alt="хомяк с пистолетом"
+          width={100}
+          height={100}
+        />
+        <UILink href="/chat" Icon={ChatIcon} setSidebarOpen={setSidebarOpen}>
+          Chat
+        </UILink>
+        <ChatSidebar />
+        <ThemeSwitcher />
+      </div>
+    </div>
+  );
+};
