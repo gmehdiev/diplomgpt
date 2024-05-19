@@ -36,6 +36,18 @@ export class UserService {
     return user;
   }
 
+  async getAllUsers() {
+    const users = await this.prismaService.user.findMany({});
+
+    const mappedUser = users.map((item) => {
+      return {
+        uuid: item.uuid,
+        email: item.email,
+      };
+    });
+    return mappedUser;
+  }
+
   private hashPassword(password: string) {
     return hashSync(password, genSaltSync(10));
   }

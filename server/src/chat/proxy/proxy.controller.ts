@@ -7,10 +7,10 @@ import { ProxyService } from './proxy.service';
 export class ProxyController {
   constructor(private readonly proxyService: ProxyService) {}
 
-  @Post()
-  async addApiKeyWithProxy(@Body() dto: ProxyDto, @Res() res: Response) {
-    await this.proxyService.addKey(dto);
+  // @Post()
+  // async addApiKeyWithProxy(@Body() dto: ProxyDto, @Res() res: Response) {
+  //   await this.proxyService.addKey(dto);
 
-    return res.status(200).json('ok');
-  }
+  //   return res.status(200).json('ok');
+  // }
 }

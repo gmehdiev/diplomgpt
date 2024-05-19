@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
-import { Exclude } from 'class-transformer';
+import { Decimal } from '@prisma/client/runtime/library';
+import { Exclude, Type } from 'class-transformer';
 
 export class UserResponse implements User {
   uuid: string;
@@ -11,6 +12,8 @@ export class UserResponse implements User {
   activationLink: string;
   @Exclude()
   rememberMe: boolean;
+  @Type(() => String)
+  balance: Decimal;
   createdAt: Date;
   updatedAt: Date;
 

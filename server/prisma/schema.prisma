@@ -13,6 +13,7 @@ datasource db {
 model User {
   uuid           String   @id @default(uuid())
   refreshToken   Token[]
+  balance        Decimal  @default(0.0)
   email          String   @unique
   password       String
   isActivated    Boolean  @default(false) @map("is_activated")

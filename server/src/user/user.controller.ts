@@ -25,10 +25,15 @@ export class UserController {
     const userProfile = await this.profileService.getUserData(
       req.body.user.uuid,
     );
-
+    console.log(user);
     return {
       user: new UserResponse(user),
       profile: new ProfileResponse(userProfile),
     };
+  }
+
+  @Get('all')
+  async getAllUsers() {
+    return this.userService.getAllUsers();
   }
 }
