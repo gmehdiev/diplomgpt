@@ -8,6 +8,9 @@ import 'highlight.js/styles/github.css';
 import { useRef, useEffect, useState } from 'react'
 import language from 'react-syntax-highlighter/dist/esm/languages/hljs/1c'
 import { CodeBlock } from '@/components/CodeBlock/CodeBlock'
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
 interface Message {
     role: string,
     content: string
@@ -53,9 +56,7 @@ export const Message = (props: Message) => {
                 isCode: false,
             });
             setReactivePaths(parts)
-
         }
-
     }, [content]);
 
     return <div className={clsx(cls.wrapper, { [cls.user]: role === 'user', [cls.assistant]: role === 'assistant' })}>
@@ -72,7 +73,11 @@ export const Message = (props: Message) => {
                         {parts.content}
                     </CodeBlock>
                 } else {
-                    return <span key={index}>{parts.content}</span>
+                    return <ReactMarkdown
+                        key={index}
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeHighlight]}
+                    >{parts.content}</ReactMarkdown>
                 }
             })}
         </pre>

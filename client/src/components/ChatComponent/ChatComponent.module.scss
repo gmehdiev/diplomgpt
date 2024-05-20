@@ -1,10 +1,26 @@
-.Wrapper {
+.subWrapper {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     height: 100dvh;
+    width: 60vw;
 }
 
+@media screen and (max-width: 1400px) {
+    .subWrapper {
+        width: 70vw; 
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .subWrapper {
+        width: 100vw; 
+    }
+}
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
 .Messages {
     height: 100%;
 }

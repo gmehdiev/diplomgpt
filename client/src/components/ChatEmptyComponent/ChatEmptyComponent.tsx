@@ -42,7 +42,9 @@ export const ChatEmptyComponent = () => {
 
     }
 
-    return <div className={clsx(cls.Wrapper)}>
-        <ChatTextarea handleClick={handleClick} />
+    return <div className={clsx(cls.wrapper)}>
+        <div className={clsx(cls.subWrapper)}>
+            <ChatTextarea handleClick={handleClick} />
+        </div>
     </div>
 }

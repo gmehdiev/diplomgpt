@@ -10,7 +10,7 @@
 }
 
 .textareaControl {
-    background-color: #fff;
+    background-color: var( --main-bg-color);
     resize: none;
     margin: 0;
     padding: 16px;

@@ -1,4 +1,6 @@
 import {
+  ConnectedSocket,
+  MessageBody,
   OnGatewayConnection,
   SubscribeMessage,
   WebSocketGateway,
@@ -33,11 +35,15 @@ export class MessageGateway implements OnGatewayConnection {
   server: Server;
   handleConnection(client: any) {}
   @SubscribeMessage('message')
-  async handleMessage(client: any, payload: any): Promise<string> {
+  async handleMessage(
+    @MessageBody() payload: any,
+    @ConnectedSocket() client: any,
+  ): Promise<string> {
+    // console.log({ client });
+
     const userBalance = await this.balanceService.getBalance(payload.userUuid);
-    console.log(userBalance.balance.toNumber());
     if (userBalance.balance.toNumber() < 0) {
-      this.server.emit('nobalance', {
+      client.emit('nobalance', {
         error: 'Денег нема, заплати гоше',
       });
       return;
@@ -46,38 +52,31 @@ export class MessageGateway implements OnGatewayConnection {
       payload.chatUuid,
       payload.message,
     );
-    await this.sendMessage(messages, payload.userUuid, userBalance.balance);
+    await this.sendMessage(
+      messages,
+      payload.userUuid,
+      userBalance.balance,
+      client,
+    );
     return 'Hello world!';
   }
-  // @SubscribeMessage('regenerate')
-  // async regenerate(client: any, payload: any): Promise<any> {
-  //   const messages = await this.messageService.regenerateAssistantMessage(
-  //     payload.chatUuid,
-  //     payload.messageUuid,
-  //   );
-  //   await this.sendMessage(messages);
-  // }
 
   @SubscribeMessage('getMessages')
-  async getMessages(client: any, payload: { chatUuid: string }): Promise<any> {
+  async getMessages(
+    @MessageBody() payload: { chatUuid: string },
+
+    @ConnectedSocket() client: any,
+  ): Promise<any> {
     const messages = await this.messageService.allMessages(payload.chatUuid);
-    this.server.emit('messages', messages);
+    client.emit('messages', messages);
   }
   private async sendMessage(
     messages: MessageResponse,
     userUuid: string,
     balance: Decimal,
+    client: any,
   ) {
     console.log(123123, messages);
-    // const apiKey = await this.proxyService.getApiKey();
-    // if (!apiKey) {
-    //   this.server.emit('events', {
-    //     path: null,
-    //     assistantMessageUuid: messages.assistantMessageUuid,
-    //     assistanCurrentMessageUuid: messages.assistanCurrentMessageUuid,
-    //   });
-    //   return;
-    // }
     const agent = new HttpsProxyAgent(this.configService.get('PROXY_URL'));
     const apiKey = this.configService.get('API_KEY');
     const openai = new OpenAI({
@@ -85,10 +84,7 @@ export class MessageGateway implements OnGatewayConnection {
       httpAgent: agent,
     });
     if ('userMessage' in messages) {
-      this.server.emit('events', {
-        // path: part.choices[0].delta.content,
-        // assistantMessageUuid: messages.assistantMessageUuid,
-        // assistanCurrentMessageUuid: messages.assistanCurrentMessageUuid,
+      client.emit('events', {
         userMessage: messages.userMessage,
       });
     }
@@ -106,7 +102,7 @@ export class MessageGateway implements OnGatewayConnection {
     for await (const part of completion) {
       if (part.choices[0]?.delta?.content) {
         accumulate.push(part.choices[0].delta.content);
-        this.server.emit('events', {
+        client.emit('events', {
           path: part.choices[0].delta.content,
           assistantMessageUuid: messages.assistantMessageUuid,
           assistanCurrentMessageUuid: messages.assistanCurrentMessageUuid,
@@ -119,7 +115,9 @@ export class MessageGateway implements OnGatewayConnection {
           Decimal.mul(0.000015, usageTokens),
         );
         const newBalance = balance.minus(cost);
-
+        client.emit('balance', {
+          balance: newBalance,
+        });
         this.balanceService.changeBalance(newBalance, userUuid);
       }
     }
@@ -128,7 +126,7 @@ export class MessageGateway implements OnGatewayConnection {
       messages.assistanCurrentMessageUuid,
       accumulate.join(''),
     );
-    this.server.emit('events', {
+    client.emit('events', {
       assistantMessage: assistantMessage,
     });
   }

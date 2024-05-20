@@ -5,3 +5,7 @@
   --default-color: rgb(52, 53, 65);
   --sidebar-text-color: #ececf1;
 }
+
+main {
+  background-color: var( --main-bg-color);
+}

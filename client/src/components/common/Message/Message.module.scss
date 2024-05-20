@@ -9,6 +9,15 @@
 .pre {
     white-space: pre-wrap;
     font-family: 'Inter', monospace;
+    padding: -1px;
+}
+
+.pre > ol {
+padding-left: 30px; 
+}
+
+.pre > ul {
+padding-left: 30px; 
 }
 
 .roleWrapper {

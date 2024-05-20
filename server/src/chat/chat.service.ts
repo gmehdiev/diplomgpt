@@ -51,6 +51,9 @@ export class ChatService {
       where: {
         profileUuid: uuid,
       },
+      orderBy: {
+        createdAt: 'desc', 
+      },
     });
   }
 }
