@@ -25,6 +25,7 @@ export class AuthenticatedWsIoAdapter extends IoAdapter {
           secret: this.configService.get('JWT_SECRET_ACCESS'),
         });
         if (payload) {
+          (request as any).user = payload;
           return allowFunction(null, true);
         }
       } catch (error) {

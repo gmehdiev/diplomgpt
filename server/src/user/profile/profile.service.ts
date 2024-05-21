@@ -20,4 +20,12 @@ export class ProfileService {
       },
     });
   }
+
+  async getProfileData(profileUuid: string) {
+    return await this.prismaService.profile.findUnique({
+      where: {
+        uuid: profileUuid,
+      },
+    });
+  }
 }

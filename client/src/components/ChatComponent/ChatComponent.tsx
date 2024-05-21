@@ -19,7 +19,6 @@ export const ChatComponent = ({ id }: { id?: string }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [transport, setTransport] = useState("N/A");
   const searchParams = useSearchParams();
-  console.log(searchParams.getAll("text"));
   const noBalance = () => {
     alert("Денег нет");
   };
@@ -52,6 +51,10 @@ export const ChatComponent = ({ id }: { id?: string }) => {
     skip: !id,
   });
 
+  const notYourChat = (value: any) => {
+    console.log(value)
+    alert(value.message)
+  }
   useEffect(() => {
     if (socket.connected) {
       onConnect();
@@ -75,6 +78,8 @@ export const ChatComponent = ({ id }: { id?: string }) => {
     socket.on("events", onFooEvent);
     socket.on("nobalance", noBalance);
     socket.on("balance", updateBalance);
+    socket.on("error", notYourChat);
+
 
     if (searchParams.getAll("text").length && isSuccess && !data?.length) {
       handleClick(searchParams.getAll("text")[0]);
@@ -85,7 +90,7 @@ export const ChatComponent = ({ id }: { id?: string }) => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
       socket.off("balance", updateBalance);
-
+      socket.off("error", notYourChat);
     };
   }, []);
 

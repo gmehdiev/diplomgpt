@@ -5,18 +5,16 @@ import user from '../../../../public/image/user.jpg'
 import clsx from 'clsx'
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, memo } from 'react'
 import language from 'react-syntax-highlighter/dist/esm/languages/hljs/1c'
 import { CodeBlock } from '@/components/CodeBlock/CodeBlock'
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
+import { Markdown } from './Markdown/Markdown'
 interface Message {
     role: string,
     content: string
 }
 
-export const Message = (props: Message) => {
+export const Message = memo((props: Message) => {
     const { role, content } = props
     const codeRef = useRef(null);
 
@@ -27,7 +25,8 @@ export const Message = (props: Message) => {
         }
     }, [language, content]);
 
-    const regex = /(```)([\s\S]*?)\1/g;
+    // const regex = /(```)([\s\S]*?)\1/g;
+    const regex = /(```[\s\S]*?```)/g
     let parts: any = [];
     const [reactivePaths, setReactivePaths] = useState<any[]>([]);
     useEffect(() => {
@@ -59,6 +58,8 @@ export const Message = (props: Message) => {
         }
     }, [content]);
 
+    console.log(reactivePaths)
+
     return <div className={clsx(cls.wrapper, { [cls.user]: role === 'user', [cls.assistant]: role === 'assistant' })}>
         <div className={cls.roleWrapper}>
             <Image src={role === 'assistant' ? hamster : user} width={48} height={48} alt="asd" className={cls.image} />
@@ -73,13 +74,9 @@ export const Message = (props: Message) => {
                         {parts.content}
                     </CodeBlock>
                 } else {
-                    return <ReactMarkdown
-                        key={index}
-                        remarkPlugins={[remarkGfm]}
-                        rehypePlugins={[rehypeHighlight]}
-                    >{parts.content}</ReactMarkdown>
+                    return <Markdown content={parts.content} key={index} />
                 }
             })}
         </pre>
     </div>
-}
+})

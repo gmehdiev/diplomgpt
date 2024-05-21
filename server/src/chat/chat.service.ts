@@ -56,4 +56,12 @@ export class ChatService {
       },
     });
   }
+
+  async getChatByUuid(uuid: string) {
+    return this.prismaService.chat.findUnique({
+      where: {
+        uuid,
+      }
+    })
+  }
 }

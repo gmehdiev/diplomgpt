@@ -141,4 +141,18 @@ export class MessageService {
       convertedMessages: this.convertMessage(currentMessages),
     };
   }
+
+  async isUserOwnerOfChat(chatUuid: string, userUuid: string) {
+    const userProfile = await this.prismaService.profile.findUnique({
+      where: { userUuid },
+      select: { uuid: true },
+    })
+
+    const chat = await this.prismaService.chat.findUnique({
+      where: { uuid: chatUuid },
+      select: { profileUuid: true },
+    });
+    console.log(chat?.profileUuid === userProfile.uuid)
+    return chat?.profileUuid === userProfile.uuid;
+  }
 }

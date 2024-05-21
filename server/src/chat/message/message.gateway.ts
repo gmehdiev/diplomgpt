@@ -39,8 +39,16 @@ export class MessageGateway implements OnGatewayConnection {
     @MessageBody() payload: any,
     @ConnectedSocket() client: any,
   ): Promise<string> {
-    // console.log({ client });
-
+    console.log(client.request.user);
+    const isOwner = await this.messageService.isUserOwnerOfChat(
+      payload.chatUuid,
+      client.request.user.uuid,
+    )
+    console.log(isOwner)
+    if (!isOwner) {
+      client.emit('error', { message: 'You do not have access to this chat' });
+      return;
+    }
     const userBalance = await this.balanceService.getBalance(payload.userUuid);
     if (userBalance.balance.toNumber() < 0) {
       client.emit('nobalance', {
@@ -76,7 +84,6 @@ export class MessageGateway implements OnGatewayConnection {
     balance: Decimal,
     client: any,
   ) {
-    console.log(123123, messages);
     const agent = new HttpsProxyAgent(this.configService.get('PROXY_URL'));
     const apiKey = this.configService.get('API_KEY');
     const openai = new OpenAI({
@@ -88,11 +95,11 @@ export class MessageGateway implements OnGatewayConnection {
         userMessage: messages.userMessage,
       });
     }
-    console.log(userUuid);
 
     const completion = await openai.chat.completions.create({
       messages: messages.convertedMessages,
-      model: 'gpt-4o',
+      model: 'gpt-3.5-turbo-0125',
+      // 'gpt-4o',
       stream: true,
       stream_options: {
         include_usage: true,
