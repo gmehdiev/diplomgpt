@@ -98,8 +98,7 @@ export class MessageGateway implements OnGatewayConnection {
 
     const completion = await openai.chat.completions.create({
       messages: messages.convertedMessages,
-      model: 'gpt-3.5-turbo-0125',
-      // 'gpt-4o',
+      model: 'gpt-4o',
       stream: true,
       stream_options: {
         include_usage: true,

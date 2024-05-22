@@ -25,7 +25,6 @@ export const Message = memo((props: Message) => {
         }
     }, [language, content]);
 
-    // const regex = /(```)([\s\S]*?)\1/g;
     const regex = /(```[\s\S]*?```)/g
     let parts: any = [];
     const [reactivePaths, setReactivePaths] = useState<any[]>([]);
@@ -58,7 +57,6 @@ export const Message = memo((props: Message) => {
         }
     }, [content]);
 
-    console.log(reactivePaths)
 
     return <div className={clsx(cls.wrapper, { [cls.user]: role === 'user', [cls.assistant]: role === 'assistant' })}>
         <div className={cls.roleWrapper}>

@@ -52,7 +52,6 @@ export const ChatComponent = ({ id }: { id?: string }) => {
   });
 
   const notYourChat = (value: any) => {
-    console.log(value)
     alert(value.message)
   }
   useEffect(() => {
