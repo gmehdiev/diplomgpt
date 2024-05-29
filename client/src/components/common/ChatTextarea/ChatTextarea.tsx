@@ -46,6 +46,7 @@ export const ChatTextarea = ({ handleClick }: Props) => {
         className={clsx(cls.Button)}
         theme={ButtonTheme.DEFAULT}
         onClick={() => {
+          if (value === '') return
           handleClick(value);
           setValue("");
         }}
