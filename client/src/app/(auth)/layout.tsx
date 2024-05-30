@@ -13,9 +13,9 @@ export default function Layout({
 }) {
   const { data: userData, isLoading } = useGetUserQuery('')
   const router = useRouter()
-  if (!userData?.user.uuid) {
-    router.push('/')
-  }
+  // if (!userData?.user.uuid) {
+  //   router.push('/')
+  // }
 
   if (isLoading) return <Loader />
   return (

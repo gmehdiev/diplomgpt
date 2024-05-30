@@ -103,7 +103,7 @@ export class AuthController {
       throw new UnauthorizedException();
     }
     res.cookie(REFRESH_TOKEN, tokens.refreshToken, {
-      httpOnly: true,
+      // httpOnly: true,
       sameSite: 'lax',
       maxAge: 2592000000,
       secure:
@@ -112,7 +112,7 @@ export class AuthController {
       // domain: '.gmehdiev.website',
     });
     res.cookie(ACCESS_TOKEN, tokens.accessToken, {
-      httpOnly: true,
+      // httpOnly: true,
       sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 24,
       secure:
