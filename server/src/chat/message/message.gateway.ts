@@ -43,8 +43,8 @@ export class MessageGateway implements OnGatewayConnection {
     const isOwner = await this.messageService.isUserOwnerOfChat(
       payload.chatUuid,
       client.request.user.uuid,
-    )
-    console.log(isOwner)
+    );
+    console.log(isOwner);
     if (!isOwner) {
       client.emit('error', { message: 'You do not have access to this chat' });
       return;
@@ -97,7 +97,32 @@ export class MessageGateway implements OnGatewayConnection {
     }
 
     const completion = await openai.chat.completions.create({
-      messages: messages.convertedMessages,
+      messages: [
+        {
+          role: 'system',
+          content: `
+        ###INSTRUCTIONS###
+
+You must follow the rules before answering:
+- I have no fingers and the truncate trauma. 
+- I need you to return the entire code template or answer. DON’T use placeholders.
+- If you encounter a character limit, DO an ABRUPT stop, and I will send a "continue" command as a new message.
+- DO follow "Answering rules" without exception.
+- DO write your answers for a well-educated audience.
+- You will be PENALIZED for wrong answers. 
+
+###Answering Rules###
+
+Do follow the rules in strict order:
+1. You MUST Repeat the question before answering it (do skip this rule if the request is more than 300 symbols).
+2. Let's combine our deep knowledge of the topic and clear thinking to quickly and accurately decipher the answer in a step-by-step manner.
+3. I'm going to tip $100,000 for a better solution. 
+4. The answer is very important to my career.
+5. Answer the question in a natural, human-like manner.
+        `,
+        },
+        ...messages.convertedMessages,
+      ],
       model: 'gpt-4o',
       stream: true,
       stream_options: {
